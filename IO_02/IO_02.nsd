@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root text="IO_02" comment="" type="program" style="nice">
+ <children>
+
+<instruction text="&#34;Variablendeklaration: temp, temp2, temp3, temp4, maske (alle unsigned char)&#34;" comment="" color="FFFFFF"></instruction>
+<while text="while(1)" comment="" color="FFFFFF">
+ <qWhile>
+
+<instruction text="&#34;Einlesen der Werte für alle Taster:&#34;,&#34;temp=P3; // P3 auf temp einlesen&#34;,&#34;temp=temp&#38;0x20; // P3 auf LST legen&#34;,&#34;temp2=P3; // P3 auf temp2 einlesen&#34;,&#34;temp2=temp2&#38;0x10;  // P3 auf RST legen&#34;,&#34;temp3=P3;  // P3 auf temp3 einlesen&#34;,&#34;temp3=temp3&#38;0x08; // P3 auf roten Taster legen&#34;,&#34;temp4=P3; // P3 auf temp4 einlesen&#34;,&#34;temp4=temp4&#38;0x04; // P3 auf blauen Taster legen&#34;" comment="" color="FFFFFF"></instruction>
+<alternative text="&#34;temp == 0&#34;" comment="" color="FFFFFF">
+ <qTrue>
+
+<instruction text="maske=0x0f;,&#34;P4=maske; &#34;,,&#34;High-Nibble LEDs an&#34;" comment="" color="FFFFFF"></instruction>
+ </qTrue>
+ <qFalse>
+
+<alternative text="&#34;temp2 == 0&#34;" comment="" color="FFFFFF">
+ <qTrue>
+
+<instruction text="maske=0xF3&#38;0xF0;,&#34;P4=maske; &#34;,,&#34;Low-Nibble LEDs an&#34;" comment="" color="FFFFFF"></instruction>
+ </qTrue>
+ <qFalse>
+
+<alternative text="&#34;temp3 == 0&#34;" comment="" color="FFFFFF">
+ <qTrue>
+
+<instruction text="maske=0xFF;,&#34;P4=maske;  &#34;,,&#34;Alles aus&#34;" comment="" color="FFFFFF"></instruction>
+ </qTrue>
+ <qFalse>
+
+<alternative text="&#34;temp4 == 0&#34;" comment="" color="FFFFFF">
+ <qTrue>
+
+<instruction text="maske=0x00;,&#34;P4=maske;  &#34;,,&#34;High- &#38; Low-Nibbles an&#34;" comment="" color="FFFFFF"></instruction>
+ </qTrue>
+ <qFalse>
+
+ </qFalse>
+</alternative>
+ </qFalse>
+</alternative>
+ </qFalse>
+</alternative>
+ </qFalse>
+</alternative>
+ </qWhile>
+</while>
+ </children>
+</root>

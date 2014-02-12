@@ -1,0 +1,145 @@
+C51 COMPILER V8.01   IO_03                                                                 09/27/2013 12:37:35 PAGE 1   
+
+
+C51 COMPILER V8.01, COMPILATION OF MODULE IO_03
+OBJECT MODULE PLACED IN IO_03.OBJ
+COMPILER INVOKED BY: C:\Program Files\Keil3\C51\BIN\C51.EXE IO_03.c BROWSE DEBUG OBJECTEXTEND TABS(8)
+
+line level    source
+
+   1          char titel[]=  "IO_04_Vasilenko"; // Titel der Datei
+   2          /*
+   3            RS IO_03 Portkommunikation
+   4            Jurij Vasilenko
+   5            ITA M2
+   6            20 September 2013
+   7          */
+   8          //******************************* Quelltextdateien *************************************
+   9          #include <Reg515c.h>
+  10          //****************************** Funktionsdeklarationen ********************************
+  11          void main(void);
+  12          void init_seriell(void);
+  13          void putchar(char ch);
+  14          void printstring(char *stringanfang);
+  15          void wait(unsigned char ms);
+  16          //******************************** Hauptprogramm ***************************************
+  17          void main(void)
+  18          {
+  19   1        // Variablendeklaration
+  20   1        int Zaehler = 0;  //Timer Counter
+  21   1        unsigned char temp;
+  22   1        char LED[8];  // LED Array
+  23   1        int Lenken = 0;  // 0=LED0-7 & 1=LED7-0
+  24   1        char swl[] = "SWL \n";  // SWL gedrückt
+  25   1        char swr[] = "SWR \n";  // SWR gedrückt
+  26   1        char rot[] = "ROT \n";  // ROT gedrückt
+  27   1        LED[0] = 0xFE;  // Programmierung des
+  28   1        LED[1] = 0xFD;  // LED Arrays auf die
+  29   1        LED[2] = 0xFB;  // die Speicheradressen
+  30   1        LED[3] = 0xF7;  // der LEDs
+  31   1        LED[4] = 0xEF;
+  32   1        LED[5] = 0xDF;
+  33   1        LED[6] = 0xBF;
+  34   1        LED[7] = 0x7F; 
+  35   1      
+  36   1        if(BD == 0)  // Baudratengenerator noch nicht aktiv
+  37   1        {                     
+  38   2          init_seriell();  // serielle Kommunikation ermöglichen
+  39   2        }             
+  40   1      
+  41   1        printstring(titel);
+  42   1        putchar('\n');
+  43   1      
+  44   1        while(1)  //Endlosschleife
+  45   1        {        
+  46   2          if(P3 == 0xDF)  // SWL gedrückt 
+  47   2          {
+  48   3             Lenken = 0;
+  49   3             temp=0xDF;
+  50   3             printstring(swl); 
+  51   3          }    
+  52   2          if(P3 == 0xEF)  // SWR gedrückt 
+  53   2          {
+  54   3            Lenken = 1;
+  55   3            temp=0xEF;
+C51 COMPILER V8.01   IO_03                                                                 09/27/2013 12:37:35 PAGE 2   
+
+  56   3            printstring(swr);      
+  57   3          }
+  58   2          if(P3 == 0xF7)  // ROT gedrückt
+  59   2          {
+  60   3            temp=0xFF;
+  61   3            P4=temp;
+  62   3            printstring(rot); 
+  63   3          }
+  64   2          
+  65   2      
+  66   2          if(temp==0xDF)
+  67   2          {
+  68   3            if(Lenken == 0)  // Laufrichtung LED0-7
+  69   3            {
+  70   4              P4 = LED[Zaehler];
+  71   4              Zaehler = Zaehler + 1;
+  72   4              
+  73   4              if(Zaehler >= 8)
+  74   4              {
+  75   5                Zaehler = 0;
+  76   5              }        
+  77   4            }
+  78   3          }
+  79   2      
+  80   2          if(temp==0xEF)
+  81   2          {
+  82   3            if(Lenken == 1)  // Laufrichtung LED7-0
+  83   3            {
+  84   4              P4 = LED[Zaehler];
+  85   4              Zaehler = Zaehler - 1;
+  86   4              
+  87   4              if(Zaehler <= -1)
+  88   4              {
+  89   5                Zaehler = 7;
+  90   5              } 
+  91   4            }            
+  92   3          }
+  93   2        }    
+  94   1      }
+  95          //***************************** F u n k t i o n e n ************************************
+  96          void init_seriell(void) 
+  97            {
+  98   1        SCON  = 0x50;         // SCON: mode 1, 8-bit UART, enable rcvr 
+  99   1        PCON |= 0x80;         // SMOD Bit setzen 
+ 100   1        SRELH = 0x03;         // 9600 baud @ 10MHz für C515C
+ 101   1        SRELL = 0xBF;
+ 102   1        BD    = 1;            // Baudratengenerator verwenden
+ 103   1        TI    = 1;            // TI:   "vorausgegangenes Transmit" beendet
+ 104   1        }
+ 105          //---------------------------------------------------------------------------------------
+ 106          void putchar(char ch)
+ 107            {
+ 108   1        while(TI != 1);       // voriges Transmit Ende abwarten
+ 109   1        TI=0;                 // für nächste Übertragung löschen
+ 110   1        SBUF=ch;              // Byte der Variablen ch seriell senden
+ 111   1        }
+ 112          //---------------------------------------------------------------------------------------
+ 113          void printstring(char *cp)
+ 114            {
+ 115   1        for(; *cp != '\0'; cp++)
+ 116   1             putchar(*cp);            // Zeichen seriell ausgeben
+ 117   1        }
+C51 COMPILER V8.01   IO_03                                                                 09/27/2013 12:37:35 PAGE 3   
+
+ 118          //---------------------------------------------------------------------------------------
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    314    ----
+   CONSTANT SIZE    =     18    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     16      31
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

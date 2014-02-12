@@ -1,0 +1,197 @@
+C51 COMPILER V8.01   TIMER_06                                                              12/18/2013 08:21:34 PAGE 1   
+
+
+C51 COMPILER V8.01, COMPILATION OF MODULE TIMER_06
+OBJECT MODULE PLACED IN timer_06.OBJ
+COMPILER INVOKED BY: C:\Program Files\Keil3\C51\BIN\C51.EXE timer_06.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          //=======================================================================================
+   2          /*
+   3            RS | Jakowski | Hellweg Berufskolleg Unna
+   4            Jurij Vasilenko | ITAM2 | 13 Dezember 2013
+   5            Timer_06
+   6          */
+   7          //=======================================================================================
+   8          //*************************** Quelltextdateien ******************************************
+   9          #define ENTER 0x00
+  10          #include <Reg515c.h>
+  11          //***************************** Konstanten **********************************************
+  12          sbit P4_0=P4^0;
+  13          sbit P4_1=P4^1;
+  14          sbit P4_2=P4^2;
+  15          //***************************** globale Variablen ***************************************
+  16          unsigned char zstart=89;
+  17          unsigned int lowtime=30, hightime=60;
+  18          unsigned int c, count;
+  19          //****************************** Funktionsdeklaration ***********************************
+  20          void main(void);
+  21          void init_seriell(void);
+  22          void putchar(char ch);
+  23          void printstring(char *cp);
+  24          char getchar(void);
+  25          unsigned int getuintdez(void);
+  26          void init_timer0(void);
+  27          void init_timer1(void);
+  28          //***************************** Hauptprogramm *******************************************
+  29          void main(void)
+  30          {
+  31   1        if(BD==0)
+  32   1          init_seriell();
+  33   1        init_timer0();
+  34   1        init_timer1();
+  35   1        EAL=1;
+  36   1        TR0=1;
+  37   1        P4_2=0;
+  38   1      
+  39   1        while(1)
+  40   1        {
+  41   2          printstring("Lowtime: ");
+  42   2          lowtime=getuintdez();
+  43   2          printstring("  Hightime: ");
+  44   2          hightime=getuintdez(); 
+  45   2        }
+  46   1      }
+  47          //**************************** Funktionen ***********************************************
+  48          void init_seriell(void) 
+  49          {
+  50   1        SCON  = 0x50;  // SCON: mode 1, 8-bit UART, enable rcvr 
+  51   1        PCON |= 0x80;  // SMOD Bit setzen 
+  52   1        SRELH = 0x03;  // 9600 baud @ 10MHz für C515C
+  53   1        SRELL = 0xBF;
+  54   1        BD    = 1;  // Baudratengenerator verwenden
+  55   1        TI    = 1;  // TI:   "vorausgegangenes Transmit" beendet
+C51 COMPILER V8.01   TIMER_06                                                              12/18/2013 08:21:34 PAGE 2   
+
+  56   1      }
+  57          //---------------------------------------------------------------------------------------
+  58          void putchar(char ch)
+  59          {
+  60   1        while(TI != 1);  // voriges Transmit Ende abwarten
+  61   1        TI=0;  // für nächste Übertragung löschen
+  62   1        SBUF=ch;  // Byte der Variablen ch seriell senden
+  63   1      }
+  64          //---------------------------------------------------------------------------------------
+  65          void printstring(char *cp)
+  66          {
+  67   1        for(; *cp != '\0'; cp++)
+  68   1          putchar(*cp);   // Zeichen seriell ausgeben
+  69   1      }
+  70          //---------------------------------------------------------------------------------------
+  71          char getchar(void)
+  72          {
+  73   1        char cget;
+  74   1      
+  75   1        do{  
+  76   2          while(!RI);  // Receive Ende abwarten (in dScope Serial Window TASTENDRUCK!)
+  77   2          cget=SBUF;  // seriell empfangenes Byte in Variable cget übernehmen
+  78   2          RI=0;  // Meldung: kann neue Daten empfangen
+  79   2          }while(cget==0x11);
+  80   1        return(cget);
+  81   1      }
+  82          //---------------------------------------------------------------------------------------
+  83          unsigned int getuintdez(void)
+  84          {
+  85   1        c=getchar();
+  86   1        putchar(c);
+  87   1        c=c-'0';
+  88   1        count=c*10000;
+  89   1        c=getchar();
+  90   1        putchar(c);
+  91   1        c=c-'0';
+  92   1        count=count+c*1000;
+  93   1        c=getchar();
+  94   1        putchar(c);
+  95   1        c=c-'0';
+  96   1        count=count+c*100;
+  97   1        c=getchar();
+  98   1        putchar(c);
+  99   1        c=c-'0';
+ 100   1        count=count+c*10;
+ 101   1        c=getchar();
+ 102   1        putchar(c);
+ 103   1        c=c-'0';
+ 104   1        count=count+c;
+ 105   1        putchar('\n');
+ 106   1      
+ 107   1        return count;
+ 108   1      }
+ 109          //---------------------------------------------------------------------------------------
+ 110          void init_timer0(void)
+ 111          {
+ 112   1        TMOD=TMOD&0xF0;
+ 113   1        TMOD=TMOD|0x02;
+ 114   1        TL0=zstart;
+ 115   1        TH0=zstart;
+ 116   1        TF0=0;
+ 117   1        ET0=1;
+C51 COMPILER V8.01   TIMER_06                                                              12/18/2013 08:21:34 PAGE 3   
+
+ 118   1      }
+ 119          //---------------------------------------------------------------------------------------
+ 120          void init_timer1(void)
+ 121          {
+ 122   1        TMOD=TMOD&0x0F;
+ 123   1        TMOD=TMOD|0x20;
+ 124   1        TL1=zstart;
+ 125   1        TH1=zstart;
+ 126   1        TF1=0;
+ 127   1        ET1=1;
+ 128   1      }
+ 129          //---------------------------------------------------------------------------------------
+ 130          void timer0_int(void) interrupt 1
+ 131          {
+ 132   1        static unsigned int teiler=0, vergleich=30;
+ 133   1      
+ 134   1        teiler++;
+ 135   1        if(teiler==1000)
+ 136   1        {
+ 137   2          P4_0=~P4_0;
+ 138   2          teiler=0;
+ 139   2          vergleich--;
+ 140   2          if(vergleich==0)
+ 141   2          {
+ 142   3            vergleich=lowtime;
+ 143   3            P4_2=1;
+ 144   3            TR0=0;
+ 145   3            TR1=1;
+ 146   3          }
+ 147   2        }
+ 148   1      }
+ 149          //---------------------------------------------------------------------------------------
+ 150          void timer1_int(void) interrupt 3
+ 151          {
+ 152   1        static unsigned int teiler=0, vergleich=60;
+ 153   1      
+ 154   1        teiler++;
+ 155   1        if(teiler==1000)
+ 156   1        {
+ 157   2          P4_1=~P4_1;
+ 158   2          teiler=0;
+ 159   2          vergleich--;
+ 160   2          if(vergleich==0)
+ 161   2          {
+ 162   3            vergleich=hightime;
+ 163   3            P4_2=0;
+ 164   3            TR1=0;
+ 165   3            TR0=1;
+ 166   3          }
+ 167   2        }
+ 168   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    412    ----
+   CONSTANT SIZE    =     23    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     17    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+C51 COMPILER V8.01   TIMER_06                                                              12/18/2013 08:21:34 PAGE 4   
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

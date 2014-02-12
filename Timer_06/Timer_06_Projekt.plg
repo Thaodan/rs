@@ -1,0 +1,81 @@
+<html>
+<body>
+<pre>
+<h1>µVision3 Build Log</h1>
+<h2>Project:</h2>
+D:\ITA\Mittelstufe\RS\Timer_06\Timer_06_Projekt.uv2
+Project File Date:  12/13/2013
+
+<h2>Output:</h2>
+Build target 'Simulation'
+compiling timer_06.c...
+TIMER_06.C(30): warning C206: 'init_timer0': missing function-prototype
+TIMER_06.C(31): warning C206: 'init_timer1': missing function-prototype
+TIMER_06.C(81): error C202: 'c': undefined identifier
+TIMER_06.C(82): error C202: 'c': undefined identifier
+TIMER_06.C(83): error C202: 'c': undefined identifier
+TIMER_06.C(84): error C202: 'count': undefined identifier
+TIMER_06.C(85): error C202: 'c': undefined identifier
+TIMER_06.C(86): error C202: 'c': undefined identifier
+TIMER_06.C(87): error C202: 'c': undefined identifier
+TIMER_06.C(88): error C202: 'count': undefined identifier
+TIMER_06.C(89): error C202: 'c': undefined identifier
+TIMER_06.C(90): error C202: 'c': undefined identifier
+TIMER_06.C(91): error C202: 'c': undefined identifier
+TIMER_06.C(92): error C202: 'count': undefined identifier
+TIMER_06.C(93): error C202: 'c': undefined identifier
+TIMER_06.C(94): error C202: 'c': undefined identifier
+TIMER_06.C(95): error C202: 'c': undefined identifier
+TIMER_06.C(96): error C202: 'count': undefined identifier
+TIMER_06.C(97): error C202: 'c': undefined identifier
+TIMER_06.C(98): error C202: 'c': undefined identifier
+TIMER_06.C(99): error C202: 'c': undefined identifier
+TIMER_06.C(100): error C202: 'count': undefined identifier
+TIMER_06.C(103): error C202: 'count': undefined identifier
+Target not created
+Build target 'Simulation'
+compiling timer_06.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  INIT_TIMER0
+    MODULE:  timer_06.obj (TIMER_06)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  INIT_TIMER1
+    MODULE:  timer_06.obj (TIMER_06)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  INIT_TIMER0
+    MODULE:  timer_06.obj (TIMER_06)
+    ADDRESS: 090FH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  INIT_TIMER1
+    MODULE:  timer_06.obj (TIMER_06)
+    ADDRESS: 0912H
+Program Size: data=18.0 xdata=0 code=481
+"Timer_06_Projekt" - 0 Error(s), 4 Warning(s).
+Build target 'Simulation'
+compiling timer_06.c...
+linking...
+Program Size: data=18.0 xdata=0 code=515
+"Timer_06_Projekt" - 0 Error(s), 0 Warning(s).
+Build target 'Simulation'
+compiling timer_06.c...
+TIMER_06.C(141): error C202: 'Lowtime': undefined identifier
+Target not created
+Build target 'Simulation'
+compiling timer_06.c...
+linking...
+Program Size: data=26.0 xdata=0 code=655
+"Timer_06_Projekt" - 0 Error(s), 0 Warning(s).
+Build target 'Simulation'
+compiling timer_06.c...
+linking...
+Program Size: data=26.0 xdata=0 code=655
+"Timer_06_Projekt" - 0 Error(s), 0 Warning(s).
+Build target 'Simulation'
+compiling timer_06.c...
+linking...
+Program Size: data=26.0 xdata=0 code=655
+"Timer_06_Projekt" - 0 Error(s), 0 Warning(s).
+</pre>
+</body>
+</html>

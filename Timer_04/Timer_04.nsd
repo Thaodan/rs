@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root text="Timer_04" comment="" type="program" style="nice">
+ <children>
+
+<alternative text="&#34;Baudratengenerator noch nicht aktiv&#34;" comment="" color="FFFFFF">
+ <qTrue>
+
+<instruction text="&#34;serielle Schnittstelle aktivieren&#34;" comment="" color="FFFFFF"></instruction>
+ </qTrue>
+ <qFalse>
+
+<instruction text="&#34; &#34;" comment="" color="FFFFFF"></instruction>
+ </qFalse>
+</alternative>
+<instruction text="&#34;Timer initialisieren&#34;" comment="" color="FFFFFF"></instruction>
+<instruction text="&#34;P3.3 Interrupt initialisieren&#34;" comment="" color="FFFFFF"></instruction>
+<instruction text="&#34;Titel ausgeben&#34;" comment="" color="FFFFFF"></instruction>
+<instruction text="&#34;Interrupts generell freigeben&#34;" comment="" color="FFFFFF"></instruction>
+<for text="&#34; &#34;" comment="" color="FFFFFF">
+ <qFor>
+
+<instruction text="&#34;Sekundenzähler zurücksetzen&#34;" comment="" color="FFFFFF"></instruction>
+<instruction text="&#34;Vorwahlzahl mehrstellig einlesen&#34;" comment="" color="FFFFFF"></instruction>
+<instruction text="&#34;Portpin für Ausgabe einlesen&#34;" comment="" color="FFFFFF"></instruction>
+<instruction text="&#34;Portpin aktivieren&#34;" comment="" color="FFFFFF"></instruction>
+<while text="&#34;warten bis Zeit abgelaufen oder Taster gedrückt&#34;" comment="" color="80FF80">
+ <qWhile>
+
+<instruction text="&#34; &#34;" comment="" color="FFFFFF"></instruction>
+ </qWhile>
+</while>
+<instruction text="&#34;Portpin deaktivieren&#34;" comment="" color="FFFFFF"></instruction>
+ </qFor>
+</for>
+ </children>
+</root>

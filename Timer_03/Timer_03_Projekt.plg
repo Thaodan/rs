@@ -1,0 +1,19 @@
+<html>
+<body>
+<pre>
+<h1>µVision3 Build Log</h1>
+<h2>Project:</h2>
+D:\ITA\01 Mittelstufe\RS\M2\Timer_03\Timer_03_Projekt.uv2
+Project File Date:  11/20/2013
+
+<h2>Output:</h2>
+Build target 'Simulation'
+compiling timer_03_vasilenko.c...
+linking...
+Program Size: data=19.0 xdata=0 code=495
+"Timer_03_Projekt" - 0 Error(s), 0 Warning(s).
+Build target 'Simulation'
+compiling timer_03_vasilenko.c...
+linking...
+Program Size: data=19.0 xdata=0 code=495
+"Timer_03_Projekt" - 0 Error(s), 0 Warning(s).

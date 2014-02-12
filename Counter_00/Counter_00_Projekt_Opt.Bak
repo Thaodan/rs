@@ -1,0 +1,60 @@
+### uVision2 Project, (C) Keil Software
+### Do not modify !
+
+ cExt (*.c)
+ aExt (*.s*; *.src; *.a*)
+ oExt (*.obj)
+ lExt (*.lib)
+ tExt (*.txt; *.h; *.inc)
+ pExt (*.plm)
+ CppX (*.cpp)
+ DaveTm { 0,0,0,0,0,0,0,0 }
+
+Target (Simulation), 0x0000 // Tools: 'MCS-51'
+Target (Hardware), 0x0000 // Tools: 'MCS-51'
+GRPOPT 1,(Source Group 1),1,0,0
+
+OPTFFF 1,1,1,33554434,0,1,18,0,<.\Counter_00_Vasilenko.c><Counter_00_Vasilenko.c> { 44,0,0,0,0,0,0,0,1,0,0,0,255,255,255,255,255,255,255,255,252,255,255,255,233,255,255,255,0,0,0,0,0,0,0,0,142,2,0,0,205,1,0,0 }
+
+
+TARGOPT 1, (Simulation)
+ CLK51=10000000
+  OPTTT 1,1,1,0
+  OPTHX 0,65535,0,0,0
+  OPTLX 120,65,8,<.\>
+  OPTOX 16
+  OPTLT 1,1,1,0,1,1,0,1,0,0,0,0
+  OPTXL 1,1,1,1,1,1,1,0,0
+  OPTFL 1,0,1
+  OPTBL 0,(C500 Instruction Set Manual)<DATASHTS\INFINEON\C500_AISM.PDF>
+  OPTBL 1,(User's Manual)<DATASHTS\INFINEON\C515C_UM.PDF>
+  OPTDL (S8051.DLL)()(D500.DLL)(-p515C)(S8051.DLL)()(T500.DLL)(-p515C)
+  OPTDBG 48125,0,()()()()(.\debug.ini)()()()()() (BIN\MON51.DLL)()()()
+  OPTKEY 0,(DLGD500)((5048=-1,-1,-1,-1,0)(98=-1,-1,-1,-1,0)(82=-1,-1,-1,-1,0)(83=-1,-1,-1,-1,0)(84=-1,-1,-1,-1,0)(85=-1,-1,-1,-1,0)(86=-1,-1,-1,-1,0)(5040=-1,-1,-1,-1,0)(5049=-1,-1,-1,-1,0)(5050=-1,-1,-1,-1,0)(5047=-1,-1,-1,-1,0)(80=-1,-1,-1,-1,0)(5057=-1,-1,-1,-1,0)(91=-1,-1,-1,-1,0)(92=-1,-1,-1,-1,0)(5045=-1,-1,-1,-1,0)(5046=-1,-1,-1,-1,0)(5031=-1,-1,-1,-1,0)(3000=-1,-1,-1,-1,0))
+  OPTBT 0,(Blau)(P3 = P3^0x04;)
+  OPTBT 1,(Rot)(P3 = P3^0x08;)
+  OPTBT 2,(SchwarzR)(P3 = P3^0x10;)
+  OPTBT 3,(SchwarzL)(P3 = P3^0x20;)
+  OPTDF 0x40008092
+  OPTLE <>
+  OPTLC <>
+EndOpt
+
+TARGOPT 2, (Hardware)
+ CLK51=10000000
+  OPTTT 1,1,1,0
+  OPTHX 0,65535,0,0,0
+  OPTLX 120,65,8,<.\>
+  OPTOX 16
+  OPTLT 1,1,1,0,1,1,0,1,0,0,0,0
+  OPTXL 1,1,1,1,1,1,1,0,0
+  OPTFL 1,0,0
+  OPTBL 0,(C500 Instruction Set Manual)<DATASHTS\INFINEON\C500_AISM.PDF>
+  OPTBL 1,(User's Manual)<DATASHTS\INFINEON\C515C_UM.PDF>
+  OPTDL (S8051.DLL)()(D500.DLL)(-p515C)(S8051.DLL)()(T500.DLL)(-p515C)
+  OPTDBG 49150,0,()()()()()()()()()() (BIN\MON51.DLL)()()()
+  OPTDF 0x40000002
+  OPTLE <>
+  OPTLC <>
+EndOpt
+

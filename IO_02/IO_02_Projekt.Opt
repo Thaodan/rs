@@ -1,0 +1,59 @@
+### uVision2 Project, (C) Keil Software
+### Do not modify !
+
+ cExt (*.c)
+ aExt (*.a*; *.src)
+ oExt (*.obj)
+ lExt (*.lib)
+ tExt (*.txt)
+ pExt (*.plm)
+ CppX (*.cpp)
+ DaveTm { 0,0,0,0,0,0,0,0 }
+
+Target (Simulation), 0x0000 // Tools: 'MCS-51'
+Target (Hardware), 0x0000 // Tools: 'MCS-51'
+GRPOPT 1,(Source Group 1),1,0,0
+
+OPTFFF 1,1,1,2,0,1,19,0,<.\IO_02_Vasilenko.c><IO_02_Vasilenko.c> { 44,0,0,0,0,0,0,0,1,0,0,0,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,0,0,0,0,248,255,255,255,64,2,0,0,159,2,0,0 }
+
+
+TARGOPT 1, (Simulation)
+ CLK51=10000000
+  OPTTT 1,1,1,0
+  OPTHX 0,65535,0,0,0
+  OPTLX 120,65,8,<.\>
+  OPTOX 16
+  OPTLT 1,1,1,0,1,1,0,1,0,0,0,0
+  OPTXL 1,1,1,1,1,1,1,0,0
+  OPTFL 1,0,0
+  OPTBL 0,(User's Manual)<DATASHTS\INFINEON\M515C.PDF>
+  OPTBL 1,(Add on databooks)<DATASHTS\ADDBOOKS.PDF>
+  OPTBL 2,(C500 Instruction Set Manual)<DATASHTS\INFINEON\M500.PDF>
+  OPTDL (S8051.DLL)()(D500.DLL)(-p515C)(S8051.DLL)()(T500.DLL)(-p515C)
+  OPTDBG 509,0,()()()()(.\debug.ini)()()()()() (BIN\MON51.DLL)()()()
+  OPTKEY 0,(DLGD500)((5048=-1,-1,-1,-1,0)(98=-1,-1,-1,-1,0)(82=-1,-1,-1,-1,0)(83=-1,-1,-1,-1,0)(84=-1,-1,-1,-1,0)(85=1022,182,1220,283,1)(86=1020,285,1218,386,1)(5040=-1,-1,-1,-1,0)(5049=-1,-1,-1,-1,0)(5050=-1,-1,-1,-1,0)(5047=-1,-1,-1,-1,0)(80=-1,-1,-1,-1,0)(5057=-1,-1,-1,-1,0)(91=-1,-1,-1,-1,0)(92=-1,-1,-1,-1,0)(5045=-1,-1,-1,-1,0)(5046=-1,-1,-1,-1,0)(5031=-1,-1,-1,-1,0)(3000=-1,-1,-1,-1,0))
+  OPTDF 0x82
+  OPTLE <>
+  OPTLC <>
+EndOpt
+
+TARGOPT 2, (Hardware)
+ CLK51=10000000
+  OPTTT 1,1,1,0
+  OPTHX 0,65535,0,0,0
+  OPTLX 120,65,8,<.\>
+  OPTOX 16
+  OPTLT 1,1,1,0,1,1,0,1,0,0,0,0
+  OPTXL 1,1,1,1,1,1,1,0,0
+  OPTFL 1,0,1
+  OPTBL 0,(User's Manual)<DATASHTS\INFINEON\M515C.PDF>
+  OPTBL 1,(Add on databooks)<DATASHTS\ADDBOOKS.PDF>
+  OPTBL 2,(C500 Instruction Set Manual)<DATASHTS\INFINEON\M500.PDF>
+  OPTDL (S8051.DLL)()(D500.DLL)(-p515C)(S8051.DLL)()(T500.DLL)(-p515C)
+  OPTDBG 49150,0,()()()()()()()()()() (BIN\MON51.DLL)()()()
+  OPTKEY 0,(MON51)(-S1 -B9600 -O15)
+  OPTDF 0x80
+  OPTLE <>
+  OPTLC <>
+EndOpt
+

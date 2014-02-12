@@ -1,0 +1,307 @@
+C51 COMPILER V8.01   TIMER_07                                                              12/18/2013 09:42:47 PAGE 1   
+
+
+C51 COMPILER V8.01, COMPILATION OF MODULE TIMER_07
+OBJECT MODULE PLACED IN timer_07.OBJ
+COMPILER INVOKED BY: C:\Program Files\Keil3\C51\BIN\C51.EXE timer_07.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          //=======================================================================================
+   2          /*
+   3            RS | Jakowski | Hellweg Berufskolleg Unna
+   4            Jurij Vasilenko | ITAM2 | 18 Dezember 2013
+   5            Timer_07
+   6          */
+   7          //=======================================================================================
+   8          //******************************* Quelltextdateien *************************************
+   9          #define ENTER 0x0D 
+  10          #include <Reg515c.h>
+  11          //********************************** Konstanten ****************************************
+  12          sbit P4_1=P4^1;
+  13          sbit P4_2=P4^2;   
+  14          sbit P4_0=P4^0;
+  15          sbit P1_0=P1^0;
+  16          sbit P1_4=P1^4;
+  17          sbit P1_1=P1^1;
+  18          sbit P1_2=P1^2;
+  19          //******************************** globale Variablen ***********************************
+  20          unsigned int lowtime=30, hightime=60;
+  21          unsigned char zstart=89;
+  22          bit a, b, aalt, balt ,a1,b1,b1alt,a1alt;
+  23          char dir,dir1;
+  24          //****************************** Funktionsdeklarationen ********************************
+  25          void main(void);
+  26          void init_seriell(void);
+  27          void init_timer1(void);
+  28          void init_timer0(void);
+  29          unsigned int getuintdez(void);
+  30          void putchar(char ch);
+  31          void printstring(char *stringanfang);
+  32          void printtime(unsigned long int zsec);
+  33          char getchar(void);
+  34          //******************************** Hauptprogramm ***************************************
+  35          void main(void) 
+  36            {
+  37   1      
+  38   1      
+  39   1        if(BD == 0)     // Baudratengenerator noch nicht aktiv
+  40   1          init_seriell();   // serielle Kommunikation ermöglichen
+  41   1        init_timer0();
+  42   1        init_timer1();
+  43   1        EAL=1; 
+  44   1        TR0=1;
+  45   1        P4_2=0; 
+  46   1        a=b=aalt=balt=a1=b1=b1alt=a1alt=1;
+  47   1            // Interrups generell freigeben
+  48   1        while(1)                      // endlos
+  49   1          {  a=P1_0;            
+  50   2          b=P1_4;
+  51   2          a1=P1_1;
+  52   2          b1=P1_2;
+  53   2      
+  54   2            if(aalt==0 && balt==0 && a==1|| aalt==1 && balt==1&&a==0 ||  a==1 && balt==0 &&b==1 || a==0 && balt==
+             -1 && b==0)
+C51 COMPILER V8.01   TIMER_07                                                              12/18/2013 09:42:47 PAGE 2   
+
+  55   2          {
+  56   3          dir--;
+  57   3      
+  58   3          
+  59   3        
+  60   3          }
+  61   2          if(aalt==1 && a==0&& b==0 || aalt==0&& a==1&&b==1|| balt==0 && a==0 &&b==1|| balt==1&&a==1&&b==0)
+  62   2          {
+  63   3          dir++;
+  64   3      
+  65   3          } 
+  66   2            if(a1alt==0 && b1alt==0 && a1==1|| a1alt==1 && b1alt==1&&a1==0 ||  a1==1 && b1alt==0 &&b1==1 || a1==0 &
+             -& b1alt==1 && b1==0)
+  67   2          {
+  68   3          dir1--;
+  69   3      
+  70   3          
+  71   3        
+  72   3          }
+  73   2          if(a1alt==1 && a1==0&& b1==0 || a1alt==0&& a1==1&&b1==1|| b1alt==0 && a1==0 &&b1==1|| b1alt==1&&a1==1&&b
+             -1==0)
+  74   2          {
+  75   3          dir1++;
+  76   3      
+  77   3          } 
+  78   2          a1alt=a1;
+  79   2          b1alt=b1; 
+  80   2      
+  81   2          aalt=a;             //Alte werte sichern
+  82   2          balt=b;
+  83   2            if(dir!=0)
+  84   2            { 
+  85   3            
+  86   3            if(dir>=1)
+  87   3            { 
+  88   4            lowtime++;
+  89   4              }
+  90   3            if(dir<=-1)
+  91   3            {     
+  92   4              lowtime--;
+  93   4              } printtime(lowtime);
+  94   3              putchar('\n');
+  95   3              dir=0;
+  96   3              }
+  97   2                
+  98   2              
+  99   2                if(dir1!=0)
+ 100   2              {
+ 101   3              if(dir1>=1)
+ 102   3              {
+ 103   4              hightime++;
+ 104   4            
+ 105   4              }
+ 106   3              if(dir1<=-1)
+ 107   3              {
+ 108   4                hightime--;
+ 109   4            
+ 110   4              }
+ 111   3              printstring("               ");
+ 112   3              printtime(hightime);
+ 113   3              putchar('\n');
+ 114   3              dir1=0;
+C51 COMPILER V8.01   TIMER_07                                                              12/18/2013 09:42:47 PAGE 3   
+
+ 115   3            
+ 116   3              }  }
+ 117   1            
+ 118   1          }  
+ 119            
+ 120            
+ 121          //***************************** F u n k t i o n e n ************************************
+ 122          void init_seriell(void) 
+ 123            {
+ 124   1        SCON  = 0x50;   // SCON: mode 1, 8-bit UART, enable rcvr 
+ 125   1        PCON |= 0x80;         // SMOD Bit setzen 
+ 126   1        SRELH = 0x03;         // 9600 baud @ 10MHz für C515C
+ 127   1        SRELL = 0xBF;
+ 128   1        BD    = 1;    // Baudratengenerator verwenden
+ 129   1        TI    = 1;            // TI:   "vorausgegangenes Transmit" beendet
+ 130   1        }
+ 131          //---------------------------------------------------------------------------------------
+ 132           void init_timer0(void)
+ 133            {
+ 134   1        TMOD=TMOD&0xF0;   // Timer1 initialisieren
+ 135   1        TMOD=TMOD|0x02;   // Modus 2, non-gated, Timer
+ 136   1        TL0=zstart;                  // Startwert
+ 137   1        TH0=zstart;                  // Reloadwert
+ 138   1        TF0=0;      // Interrupt Flag löschen
+ 139   1        ET0=1;      // Interrupt freigeben 
+ 140   1        }
+ 141            void init_timer1(void)
+ 142            {
+ 143   1        TMOD=TMOD&0x0F;   // Timer1 initialisieren
+ 144   1        TMOD=TMOD|0x20;   // Modus 2, non-gated, Timer
+ 145   1        TL1=zstart;                  // Startwert
+ 146   1        TH1=zstart;                  // Reloadwert
+ 147   1        TF1=0;      // Interrupt Flag löschen
+ 148   1        ET1=1;      // Interrupt freigeben 
+ 149   1        }
+ 150           
+ 151          //---------------------------------------------------------------------------------------
+ 152          void putchar(char ch)
+ 153            {
+ 154   1        while(TI != 1); // voriges Transmit Ende abwarten
+ 155   1        TI=0;                 // für nächste Übertragung löschen
+ 156   1        SBUF=ch;    // Byte der Variablen ch seriell senden
+ 157   1        }
+ 158          //--------------------------------------------------------------------------------------
+ 159          void printbytedez(unsigned char by) // 000 .. 255 seriell ausgeben
+ 160            {
+ 161   1        putchar(by/100+'0');               
+ 162   1        putchar(by%100/10+'0');               
+ 163   1        putchar(by%10+'0');               
+ 164   1        }
+ 165          //---------------------------------------------------------------------------------------
+ 166          void printstring(char *cp)
+ 167            {
+ 168   1        for(; *cp != '\0'; cp++)
+ 169   1             putchar(*cp);    // Zeichen seriell ausgeben
+ 170   1        }
+ 171          //---------------------------------------------------------------------------------------
+ 172          void printtime(unsigned long int zsec)
+ 173            {
+ 174   1        unsigned char sec, min;
+ 175   1      
+ 176   1        sec=zsec/10%60;
+C51 COMPILER V8.01   TIMER_07                                                              12/18/2013 09:42:47 PAGE 4   
+
+ 177   1        min=zsec/10/60;
+ 178   1        putchar(min/10+'0');
+ 179   1        putchar(min%10+'0');
+ 180   1        putchar(':');
+ 181   1        putchar(sec/10+'0');
+ 182   1        putchar(sec%10+'0');
+ 183   1        putchar('.');
+ 184   1        putchar(zsec%10+'0');
+ 185   1        }                      
+ 186          //---------------------------------------------------------------------------------------
+ 187          char getchar(void)
+ 188            {
+ 189   1        char cget;
+ 190   1        
+ 191   1        while(!RI);           // Receive Ende abwarten (in dScope Serial Window TASTENDRUCK!)
+ 192   1        cget=SBUF;      // seriell empfangenes Byte in Variable cget übernehmen
+ 193   1        RI=0;       // Meldung: kann neue Daten empfangen
+ 194   1        if(cget==0x11)    // Keil Monitor Driver Kontrollzeichen nicht auswerten
+ 195   1          return(0);      // Kein "echter" Tastendruck 
+ 196   1        return(cget);
+ 197   1        }
+ 198          //--------------------------------------------------------------------------------------
+ 199          char kbhit(void)  // Wie getchar, jedoch kein Warten auf Taste (return 0)
+ 200            {
+ 201   1        char cget;
+ 202   1      
+ 203   1        if(RI == 0)
+ 204   1          return(0);
+ 205   1        cget=SBUF;    // Zeichen holen (Tastendruck vorhanden)
+ 206   1        RI=0;     // Flag reset
+ 207   1        if(cget==0x11)  // Keil Monitor Driver Kontrollzeichen nicht auswerten
+ 208   1          return(0);    // Kein "echter" Tastendruck 
+ 209   1        return(cget);
+ 210   1        }
+ 211          //---------------------------------------------------------------------------------------
+ 212          //----------------------------- I n t e r r u p t ---------------------------------------
+ 213          //---------------------------------------------------------------------------------------
+ 214          void timer1_int(void) interrupt 3
+ 215            {             // TF1 wird durch Hardware zurückgesetzt
+ 216   1        static unsigned int teiler=0, vergleich=60;
+ 217   1      
+ 218   1                                      // Reload per Autureload
+ 219   1        teiler++;
+ 220   1        if(teiler == 1000)    // 0,1s vergangen
+ 221   1          {
+ 222   2          P4_1=~P4_1;                 // Anzeige Timer1
+ 223   2          teiler=0;
+ 224   2          vergleich--;        // Zehntelsekunden zählen
+ 225   2        if(vergleich==0)
+ 226   2        {
+ 227   3          vergleich=hightime;
+ 228   3          P4_2=0;
+ 229   3          TR1=0;
+ 230   3          TR0=1;
+ 231   3        
+ 232   3        }
+ 233   2          }
+ 234   1        }
+ 235            void timer0_int(void) interrupt 1
+ 236            {             // TF1 wird durch Hardware zurückgesetzt
+ 237   1        static unsigned int teiler=0, vergleich=30;
+ 238   1      
+C51 COMPILER V8.01   TIMER_07                                                              12/18/2013 09:42:47 PAGE 5   
+
+ 239   1                                      // Reload per Autureload
+ 240   1        teiler++;
+ 241   1        if(teiler == 1000)    // 0,1s vergangen
+ 242   1          {
+ 243   2          P4_0=~P4_0;                 // Anzeige Timer1
+ 244   2          teiler=0;
+ 245   2          vergleich--;        // Zehntelsekunden zählen
+ 246   2        if(vergleich==0)
+ 247   2        {
+ 248   3          vergleich=lowtime;
+ 249   3          P4_2=1;
+ 250   3          TR0=0;
+ 251   3          TR1=1;
+ 252   3          
+ 253   3        
+ 254   3        }
+ 255   2          }
+ 256   1        }
+ 257          unsigned int getuintdez(void)
+ 258            {
+ 259   1        unsigned int wert=0;
+ 260   1        unsigned char c;
+ 261   1      
+ 262   1        while(1)
+ 263   1          {
+ 264   2          c=getchar();
+ 265   2          if(c == ENTER)
+ 266   2            break;
+ 267   2          putchar(c);
+ 268   2          wert=wert*10+c-'0';
+ 269   2          }
+ 270   1        return(wert);
+ 271   1        }
+ 272          
+ 273          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    787    ----
+   CONSTANT SIZE    =     16    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     15       5
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      8    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

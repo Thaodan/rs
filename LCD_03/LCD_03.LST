@@ -1,0 +1,313 @@
+C51 COMPILER V8.01   LCD_03                                                                02/05/2014 08:02:55 PAGE 1   
+
+
+C51 COMPILER V8.01, COMPILATION OF MODULE LCD_03
+OBJECT MODULE PLACED IN LCD_03.OBJ
+COMPILER INVOKED BY: C:\Program Files\Keil3\C51\BIN\C51.EXE LCD_03.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          //---------------------------------------------------------------------------------------
+   2          //  Jurij Vasilenko | RS  | Jakowski
+   3          //  29.01.2014  | ITAM2
+   4          //  LCD_03
+   5          //--jak13--------------------------------------------------------------------------------
+   6          //-------------------------------- Quelltextdateien -------------------------------------
+   7          #include <Reg515c.h>
+   8          //-------------------------------- Symbolische Konstanten -------------------------------
+   9          #define LCD_data3 ((unsigned char *)0x2FF00L) // /CS3   benutzter Adressbereich!
+  10          #define LCD_data2 ((unsigned char *)0x2FE00L)   // /CS2
+  11          #define LCD_data1 ((unsigned char *)0x2FD00L)   // /CS1
+  12          #define WRITE_INS ((unsigned char *)0x2FF00L) // siehe Badischweiler\LCD Simulation
+  13          #define READ_INS  ((unsigned char *)0x2FF01L) //  \LCD_demo\c51.de\Teil2
+  14          #define WRITE_DATA  ((unsigned char *)0x2FF02L) //  \Software\LCD\LCD_Example\lcd_def.h
+  15          #define READ_DATA ((unsigned char *)0x2FF03L) // A1-->RS   A0-->R/W
+  16          #define ENTER 0x0D
+  17          //-------------------------------- Adress Spezifikationen -------------------------------
+  18          sbit    P3_2    =  P3^2;  // P3.2  Taster Blau
+  19          sbit    P3_3    =  P3^3;  // P3.3 Taster Rot
+  20          sbit    P3_4    =  P3^4;  // P3.4 Taster SWR
+  21          sbit    P3_5    =  P3^5;  // P3.5 Taster SWL
+  22          //-------------------------------- globale Variablen ------------------------------------
+  23          unsigned char position;
+  24          int zeile=0,spalte=0, zaehler=1;
+  25          //-------------------------------- P r o t o t y p e n ----------------------------------
+  26          void init_seriell(void);
+  27          void init_lcd(void);
+  28          void wait(unsigned char ms);  
+  29          char waitbsy(void);
+  30          void gotozs(unsigned char z, unsigned char s);
+  31          void putlcd(char ch);
+  32          //------------------------------ H a u p t p r o g r a m m ------------------------------
+  33          void main(void) 
+  34          {
+  35   1        if(BD == 0)
+  36   1          init_seriell();
+  37   1        init_lcd();
+  38   1                             
+  39   1        while(1)                       
+  40   1        {
+  41   2          while(zaehler==1)
+  42   2          {  
+  43   3            if(P3_5==0)
+  44   3              {
+  45   4                spalte=spalte-1;
+  46   4                if(spalte<0)
+  47   4                { 
+  48   5                  spalte=19;
+  49   5                }
+  50   4                if(zeile>3)
+  51   4                {
+  52   5                  zeile=0;
+  53   5                }
+  54   4                if(zeile<0)
+  55   4                {
+C51 COMPILER V8.01   LCD_03                                                                02/05/2014 08:02:55 PAGE 2   
+
+  56   5                  zeile=3;
+  57   5                }
+  58   4                if(spalte>19)
+  59   4                {
+  60   5                  spalte=0; 
+  61   5                }
+  62   4                gotozs(zeile,spalte);
+  63   4                putlcd('1');
+  64   4                gotozs(zeile,spalte);
+  65   4                zaehler=0;
+  66   4                wait(250);
+  67   4              }
+  68   3      
+  69   3            if(P3_4==0)
+  70   3            { 
+  71   4              zeile=zeile-1;
+  72   4              if(spalte<0)
+  73   4              { 
+  74   5                spalte=19;
+  75   5              }
+  76   4              if(zeile>3)
+  77   4              {
+  78   5                zeile=0;
+  79   5              }
+  80   4              if(zeile<0)
+  81   4              {
+  82   5                zeile=3;
+  83   5              }
+  84   4                if(spalte>19)
+  85   4              {
+  86   5                spalte=0; 
+  87   5              }
+  88   4              gotozs(zeile,spalte);
+  89   4              putlcd('2');
+  90   4              gotozs(zeile,spalte);
+  91   4              zaehler=0;
+  92   4              wait(250);
+  93   4            }
+  94   3      
+  95   3            if(P3_3==0)
+  96   3            {         
+  97   4              zeile=zeile+1;
+  98   4              if(spalte<0)
+  99   4              { 
+ 100   5                spalte=19;
+ 101   5              }
+ 102   4              if(zeile>3)
+ 103   4              {
+ 104   5                zeile=0;
+ 105   5              }
+ 106   4              if(zeile<0)
+ 107   4              {
+ 108   5                zeile=3;
+ 109   5              }
+ 110   4                if(spalte>19)
+ 111   4              {
+ 112   5                spalte=0; 
+ 113   5              }
+ 114   4              gotozs(zeile,spalte);
+ 115   4              putlcd('3');
+ 116   4              gotozs(zeile,spalte);
+ 117   4              zaehler=0;
+C51 COMPILER V8.01   LCD_03                                                                02/05/2014 08:02:55 PAGE 3   
+
+ 118   4              wait(250);
+ 119   4            }
+ 120   3      
+ 121   3            if(P3_2==0)
+ 122   3            { 
+ 123   4              spalte=spalte+1;
+ 124   4              if(spalte<0)
+ 125   4              { 
+ 126   5                spalte=19;
+ 127   5              }
+ 128   4              if(zeile>3)
+ 129   4              {
+ 130   5                zeile=0;
+ 131   5              }
+ 132   4              if(zeile<0)
+ 133   4              {
+ 134   5                zeile=3;
+ 135   5              }
+ 136   4                if(spalte>19)
+ 137   4              {
+ 138   5                spalte=0; 
+ 139   5              }
+ 140   4              gotozs(zeile,spalte);
+ 141   4                putlcd('4');
+ 142   4              gotozs(zeile,spalte);
+ 143   4              zaehler=0;
+ 144   4              wait(250);
+ 145   4            }
+ 146   3      
+ 147   3            if(P3_3==0 && P3_5==0)  // Unten-Links
+ 148   3            {
+ 149   4              zaehler=0;
+ 150   4              wait(250);
+ 151   4            } 
+ 152   3      
+ 153   3            if(P3_5==0 && P3_4==0)  // Oben-Links
+ 154   3            {
+ 155   4              zaehler=0;
+ 156   4              wait(250);
+ 157   4            }
+ 158   3      
+ 159   3            if(P3_2==0 && P3_3==0)  // Unten-Rechts
+ 160   3            {
+ 161   4              zaehler=0;
+ 162   4              wait(250);
+ 163   4            }
+ 164   3      
+ 165   3            if(P3_2==0 && P3_4==0)  // Oben-Rechts
+ 166   3            {
+ 167   4              zaehler=0;
+ 168   4              wait(250);
+ 169   4            }
+ 170   3          }
+ 171   2      
+ 172   2          if(P3_2==1&&P3_3==1&&P3_4==1&&P3_5==1)
+ 173   2          {
+ 174   3            zaehler=1;
+ 175   3          } 
+ 176   2        }
+ 177   1      }
+ 178          //---------------------------------------------------------------------------------------
+ 179          void init_lcd(void)
+C51 COMPILER V8.01   LCD_03                                                                02/05/2014 08:02:55 PAGE 4   
+
+ 180            {
+ 181   1        wait(15); // nach Power ON erforderlich
+ 182   1        *WRITE_INS=0x34;  // Function Set: 8 Bit, RE=1
+ 183   1        wait(1);  // erforderlich 39µs
+ 184   1        *WRITE_INS=0x09;  // extended Function Set: 4 Zeilen Modus
+ 185   1        wait(1);  // erforderlich 39µs
+ 186   1        *WRITE_INS=0x30;  // 8 Bit, RE=0, no low power 
+ 187   1        wait(1);  // erforderlich 39µs
+ 188   1        *WRITE_INS=0x0C;  // Display ein, Cursor ein, Cursor blinken
+ 189   1        wait(1);  // erforderlich 39µs
+ 190   1        *WRITE_INS=0x01;  // Display löschen, Cursor auf 1.Spalte von 1.Zeile
+ 191   1        wait(2);  // erforderlich 1530µs
+ 192   1        *WRITE_INS=0x06;  // Entry Mode Set: Cursor Auto-Increment
+ 193   1        wait(1);  // erforderlich 39µs
+ 194   1        }
+ 195          //---------------------------------------------------------------------------------------
+ 196          void wait(unsigned char ms)
+ 197          {
+ 198   1        unsigned int t;
+ 199   1        while(P3_2==0||P3_3==0||P3_4==0||P3_5==0);
+ 200   1        while(ms > 0)
+ 201   1          {
+ 202   2          for(t=210; t>0; t--);
+ 203   2          ms--;
+ 204   2          }
+ 205   1      }
+ 206          //---------------------------------------------------------------------------------------
+ 207          char waitbsy(void)
+ 208          {
+ 209   1        char bsy_adr; // Vorzeichen Bit ist Busy Flag
+ 210   1        while(1)
+ 211   1          {
+ 212   2          bsy_adr=*READ_INS;  // Busy Flag und Adresse lesen
+ 213   2          if((bsy_adr&0x80) == 0) // Busy Flag gelöscht
+ 214   2            break;
+ 215   2          }
+ 216   1        return bsy_adr; // 7:bsy,  6..0 RAM Adress
+ 217   1      }
+ 218          //---------------------------------------------------------------------------------------
+ 219          void gotozs(unsigned char z, unsigned char s)
+ 220          {
+ 221   1        z=(z+s/20)%4; // auch mit z>3 und s>19 nutzbar
+ 222   1        s=s%20;
+ 223   1        position=z*20+s;
+ 224   1        *WRITE_INS=0x80|(position/20*32+position%20); // Cursor auf Position
+ 225   1        waitbsy();  // warten bis Busy Flag gelöscht
+ 226   1      }
+ 227          //---------------------------------------------------------------------------------------
+ 228          void putlcd(char ch)
+ 229          {
+ 230   1        if(ch != 0x0D && ch != '\b' && ch != '\t')
+ 231   1          {
+ 232   2          *WRITE_DATA=ch;
+ 233   2          waitbsy();  // warten bis Busy Flag gelöscht
+ 234   2          position=++position%80; // neue Cursorposition
+ 235   2          *WRITE_INS=0x80|(position/20*32+position%20); // Cursor auf Position
+ 236   2          waitbsy();  // warten bis Busy Flag gelöscht
+ 237   2          return;
+ 238   2          }
+ 239   1        if(ch == 0x0D)
+ 240   1          {
+ 241   2          if(position/20 == 0)
+C51 COMPILER V8.01   LCD_03                                                                02/05/2014 08:02:55 PAGE 5   
+
+ 242   2            position=20;
+ 243   2          else if(position/20 == 1)
+ 244   2            position=40;
+ 245   2          else if(position/20 == 2)
+ 246   2            position=60;
+ 247   2          else if(position/20 == 3)
+ 248   2            position=0;
+ 249   2          }
+ 250   1        if(ch == '\b'  && position%20 != 0)
+ 251   1          {
+ 252   2          position--;
+ 253   2          *WRITE_INS=0x80|(position/20*32+position%20); // Cursor auf Position
+ 254   2          waitbsy();  // warten bis Busy Flag gelöscht
+ 255   2          *WRITE_DATA=' ';
+ 256   2          waitbsy();  // warten bis Busy Flag gelöscht
+ 257   2          *WRITE_INS=0x80|(position/20*32+position%20); // Cursor auf Position
+ 258   2          waitbsy();  // warten bis Busy Flag gelöscht
+ 259   2          return;
+ 260   2          }
+ 261   1        if(ch == '\t')
+ 262   1          {
+ 263   2          if(position >= 70)  // am Ende
+ 264   2            position=0;
+ 265   2          else if(position%20 < 10)
+ 266   2            position=position/20*20+10; // in derselben Zeile
+ 267   2          else
+ 268   2            position=(position/20+1)*20;  // in der nächsten Zeile
+ 269   2          }
+ 270   1        *WRITE_INS=0x80|(position/20*32+position%20); // Cursor auf Position
+ 271   1        waitbsy();  // warten bis Busy Flag gelöscht
+ 272   1      }
+ 273          //---------------------------------------------------------------------------------------
+ 274          void init_seriell(void) 
+ 275          {
+ 276   1        SCON  = 0x50; // SCON: mode 1, 8-bit UART, enable rcvr
+ 277   1        PCON |= 0x80; // SMOD Bit setzen
+ 278   1        SRELH = 0x03; // 9600 baud @ 10MHz für C515C entspricht
+ 279   1        SRELL = 0xBF; // dScope COMMAND: XTAL=20000000  (80515A)
+ 280   1        BD    = 1;  // Baudratengenerator verwenden
+ 281   1        TI    = 1;  // TI:   "vorausgegangenes Transmit" beendet
+ 282   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    849    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      7    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

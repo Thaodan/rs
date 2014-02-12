@@ -1,0 +1,37 @@
+### uVision2 Project, (C) Keil Software
+### Do not modify !
+
+ cExt (*.c)
+ aExt (*.s*; *.src; *.a*)
+ oExt (*.obj)
+ lExt (*.lib)
+ tExt (*.txt; *.h; *.inc)
+ pExt (*.plm)
+ CppX (*.cpp)
+ DaveTm { 0,0,0,0,0,0,0,0 }
+
+Target (Hardware), 0x0000 // Tools: 'MCS-51'
+GRPOPT 1,(Source Group 1),1,0,0
+
+OPTFFF 1,1,1,2,0,19,44,0,<.\LCD_01.c><LCD_01.c> { 44,0,0,0,2,0,0,0,3,0,0,0,255,255,255,255,255,255,255,255,252,255,255,255,226,255,255,255,3,0,0,0,7,0,0,0,126,2,0,0,149,2,0,0 }
+
+
+TARGOPT 1, (Hardware)
+ CLK51=10000000
+  OPTTT 1,1,1,0
+  OPTHX 0,65535,0,0,0
+  OPTLX 120,65,8,<.\>
+  OPTOX 16
+  OPTLT 1,1,1,0,1,1,0,1,0,0,0,0
+  OPTXL 1,1,1,1,1,1,1,0,0
+  OPTFL 1,0,1
+  OPTBL 0,(C500 Instruction Set Manual)<DATASHTS\INFINEON\C500_AISM.PDF>
+  OPTBL 1,(User's Manual)<DATASHTS\INFINEON\C515C_UM.PDF>
+  OPTDL (S8051.DLL)()(D500.DLL)(-p515C)(S8051.DLL)()(T500.DLL)(-p515C)
+  OPTDBG 49150,0,()()()()()()()()()() (BIN\MON51.DLL)()()()
+  OPTKEY 0,(MON51)(-S1 -B9600 -O15)
+  OPTDF 0x40000092
+  OPTLE <>
+  OPTLC <>
+EndOpt
+

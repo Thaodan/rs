@@ -1,0 +1,84 @@
+C51 COMPILER V8.01   TIMER_02_VASILENKO                                                    11/20/2013 09:03:48 PAGE 1   
+
+
+C51 COMPILER V8.01, COMPILATION OF MODULE TIMER_02_VASILENKO
+OBJECT MODULE PLACED IN timer_02_vasilenko.OBJ
+COMPILER INVOKED BY: C:\Program Files\Keil3\C51\BIN\C51.EXE timer_02_vasilenko.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          //======================================================================================
+   2          //               Timer_02
+   3          //  Name: Jurij         Vorname: Vasilenko        Klasse: ITAM2     Datum: 20. Nov 2013                   
+             -                                               
+   4          //======================================================================================
+   5          //******************************* Quelltextdateien *************************************
+   6          #include <Reg515c.h>            // Definition der Port-Bytes usw.
+   7          //********************************** Konstanten ****************************************
+   8          sbit P4_0 = P4^0;
+   9          //****************************** Funktionsdeklarationen ********************************
+  10          void main(void);
+  11          void init_seriell(void);
+  12          void putchar(char ch);
+  13          void printstring(char *stringanfang);
+  14          void init_timer0(void);
+  15          //******************************** Hauptprogramm ***************************************
+  16          unsigned int sec, count;
+  17          void main(void)
+  18          {
+  19   1        if(BD == 0)     // Baudratengenerator noch nicht aktiv
+  20   1         init_seriell();    // serielle Kommunikation ermöglichen
+  21   1        init_timer0();
+  22   1        EAL=1;
+  23   1           
+  24   1        while(1)  // Endlos
+  25   1        {
+  26   2          ;
+  27   2        }
+  28   1      }
+  29          //***************************** F u n k t i o n e n ************************************
+  30          void init_seriell(void) 
+  31            {
+  32   1        SCON  = 0x50;   // SCON: mode 1, 8-bit UART, enable rcvr 
+  33   1        PCON |= 0x80;         // SMOD Bit setzen 
+  34   1        SRELH = 0x03;         // 9600 baud @ 10MHz für C515C
+  35   1        SRELL = 0xBF;
+  36   1        BD    = 1;    // Baudratengenerator verwenden
+  37   1        TI    = 1;            // TI:   "vorausgegangenes Transmit" beendet
+  38   1        }
+  39          void init_timer0(void)
+  40          { 
+  41   1        TMOD=TMOD&0xF0;
+  42   1        TMOD=TMOD|0x02;
+  43   1        TL0=89;  // nur Low-Anteil übertragen
+  44   1        TH0=89; // high nach low schieben, dann übertragen
+  45   1        TF0=0;
+  46   1        ET0=1;
+  47   1        TR0=1;
+  48   1      }
+  49          void timer0_int(void)interrupt 1
+  50          {
+  51   1        count++;
+  52   1        if(count==10000) // Überprüfen ob 1 Sekunde erreicht wurde
+  53   1        { 
+  54   2          sec++;  // Sekunde hochzählen
+C51 COMPILER V8.01   TIMER_02_VASILENKO                                                    11/20/2013 09:03:48 PAGE 2   
+
+  55   2          count=0;
+  56   2          P4_0=P4_0^1;  // LED umschalten (toggle) 
+  57   2        }
+  58   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     93    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

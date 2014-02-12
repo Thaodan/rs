@@ -1,0 +1,142 @@
+<html>
+<body>
+<pre>
+<h1>µVision3 Build Log</h1>
+<h2>Project:</h2>
+D:\ITA\Mittelstufe\RS\LCD_02\LED_02_Balken\LCD_02_Balken_Project.uv2
+Project File Date:  01/22/2014
+
+<h2>Output:</h2>
+Build target 'Software'
+compiling LCD_02_Balken.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?INIT_LCD?LCD_02_BALKEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_PRINTLCD?LCD_02_BALKEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_PRINTBYTEDEZ?LCD_02_BALKEN
+Program Size: data=36.0 xdata=0 code=1192
+"LCD_02_Balken_Project" - 0 Error(s), 3 Warning(s).
+Build target 'Hardware'
+compiling LCD_02_Balken.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_PRINTLCD?LCD_02_BALKEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_PRINTBYTEDEZ?LCD_02_BALKEN
+Program Size: data=36.0 xdata=0 code=1205
+"LCD_02_Balken_Project" - 0 Error(s), 2 Warning(s).
+Build target 'Hardware'
+compiling LCD_02_Balken.c...
+LCD_02_BALKEN.C(66): warning C214: 'Argument': conversion: pointer to non-pointer
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_PRINTLCD?LCD_02_BALKEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_PRINTBYTEDEZ?LCD_02_BALKEN
+Program Size: data=36.0 xdata=0 code=1210
+"LCD_02_Balken_Project" - 0 Error(s), 3 Warning(s).
+Build target 'Hardware'
+compiling LCD_02_Balken.c...
+LCD_02_BALKEN.C(63): warning C214: 'Argument': conversion: pointer to non-pointer
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_PRINTLCD?LCD_02_BALKEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_PRINTBYTEDEZ?LCD_02_BALKEN
+Program Size: data=26.0 xdata=0 code=1159
+"LCD_02_Balken_Project" - 0 Error(s), 3 Warning(s).
+Build target 'Hardware'
+compiling LCD_02_Balken.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_PRINTLCD?LCD_02_BALKEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_PRINTBYTEDEZ?LCD_02_BALKEN
+Program Size: data=26.0 xdata=0 code=1154
+"LCD_02_Balken_Project" - 0 Error(s), 2 Warning(s).
+Build target 'Hardware'
+compiling LCD_02_Balken.c...
+LCD_02_BALKEN.C(38): error C231: 'c': redefinition
+Target not created
+Build target 'Hardware'
+compiling LCD_02_Balken.c...
+LCD_02_BALKEN.C(38): error C231: 'z': redefinition
+Target not created
+Build target 'Hardware'
+compiling LCD_02_Balken.c...
+LCD_02_BALKEN.C(39): error C231: 'z': redefinition
+Target not created
+Build target 'Hardware'
+compiling LCD_02_Balken.c...
+LCD_02_BALKEN.C(39): error C231: 'z': redefinition
+Target not created
+Build target 'Hardware'
+compiling LCD_02_Balken.c...
+LCD_02_BALKEN.C(39): error C231: 'z': redefinition
+Target not created
+Build target 'Hardware'
+compiling LCD_02_Balken.c...
+LCD_02_BALKEN.C(39): error C231: 'z': redefinition
+Target not created
+Build target 'Hardware'
+compiling LCD_02_Balken.c...
+LCD_02_BALKEN.C(122): error C202: 'position': undefined identifier
+LCD_02_BALKEN.C(123): error C202: 'position': undefined identifier
+LCD_02_BALKEN.C(133): error C202: 'position': undefined identifier
+LCD_02_BALKEN.C(134): error C202: 'position': undefined identifier
+LCD_02_BALKEN.C(140): error C202: 'position': undefined identifier
+LCD_02_BALKEN.C(141): error C202: 'position': undefined identifier
+LCD_02_BALKEN.C(142): error C202: 'position': undefined identifier
+LCD_02_BALKEN.C(143): error C202: 'position': undefined identifier
+LCD_02_BALKEN.C(144): error C202: 'position': undefined identifier
+LCD_02_BALKEN.C(145): error C202: 'position': undefined identifier
+LCD_02_BALKEN.C(146): error C202: 'position': undefined identifier
+LCD_02_BALKEN.C(147): error C202: 'position': undefined identifier
+LCD_02_BALKEN.C(149): error C202: 'position': undefined identifier
+LCD_02_BALKEN.C(151): error C202: 'position': undefined identifier
+LCD_02_BALKEN.C(152): error C202: 'position': undefined identifier
+LCD_02_BALKEN.C(156): error C202: 'position': undefined identifier
+LCD_02_BALKEN.C(162): error C202: 'position': undefined identifier
+LCD_02_BALKEN.C(163): error C202: 'position': undefined identifier
+LCD_02_BALKEN.C(164): error C202: 'position': undefined identifier
+LCD_02_BALKEN.C(165): error C202: 'position': undefined identifier
+LCD_02_BALKEN.C(167): error C202: 'position': undefined identifier
+LCD_02_BALKEN.C(169): error C202: 'position': undefined identifier
+Target not created
+Build target 'Hardware'
+compiling LCD_02_Balken.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_PRINTLCD?LCD_02_BALKEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_PRINTBYTEDEZ?LCD_02_BALKEN
+Program Size: data=26.0 xdata=0 code=1152
+"LCD_02_Balken_Project" - 0 Error(s), 2 Warning(s).
+Build target 'Hardware'
+compiling LCD_02_Balken.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_PRINTLCD?LCD_02_BALKEN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_PRINTBYTEDEZ?LCD_02_BALKEN
+Program Size: data=26.0 xdata=0 code=1152
+"LCD_02_Balken_Project" - 0 Error(s), 2 Warning(s).
+Build target 'Hardware'
+compiling LCD_02_Balken.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_PRINTLCD?LCD_02_BALKEN
+Program Size: data=25.0 xdata=0 code=831
+"LCD_02_Balken_Project" - 0 Error(s), 1 Warning(s).
+Build target 'Hardware'
+compiling LCD_02_Balken.c...
+linking...
+Program Size: data=25.0 xdata=0 code=812
+"LCD_02_Balken_Project" - 0 Error(s), 0 Warning(s).
+Build target 'Hardware'
+compiling LCD_02_Balken.c...
+linking...
+Program Size: data=25.0 xdata=0 code=812
+"LCD_02_Balken_Project" - 0 Error(s), 0 Warning(s).

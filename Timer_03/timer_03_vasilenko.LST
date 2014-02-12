@@ -1,0 +1,139 @@
+C51 COMPILER V8.01   TIMER_03_VASILENKO                                                    11/22/2013 12:39:01 PAGE 1   
+
+
+C51 COMPILER V8.01, COMPILATION OF MODULE TIMER_03_VASILENKO
+OBJECT MODULE PLACED IN timer_03_vasilenko.OBJ
+COMPILER INVOKED BY: C:\Program Files\Keil3\C51\BIN\C51.EXE timer_03_vasilenko.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          //======================================================================================
+   2          //               Timer_03
+   3          //  Name: Jurij         Vorname: Vasilenko        Klasse: ITAM2     Datum: 20. Nov 2013                   
+             -                                               
+   4          //======================================================================================
+   5          //******************************* Quelltextdateien *************************************
+   6          #include <Reg515c.h>            // Definition der Port-Bytes usw.
+   7          //********************************** Konstanten ****************************************
+   8          sbit P4_0 = P4^0;
+   9          sbit P3_2 = P3^2;
+  10          sbit P3_3 = P3^3;
+  11          //****************************** Funktionsdeklarationen ********************************
+  12          void main(void);
+  13          void init_seriell(void);
+  14          void putchar(char ch);
+  15          void printstring(char *stringanfang);
+  16          void init_timer0(void);
+  17          void printuintdez(unsigned int x);
+  18          void printuintdez2(unsigned int x);
+  19          void printstring(char *cp);
+  20          void putchar(char ch);
+  21          //******************************** Hauptprogramm ***************************************
+  22          unsigned int sec, count, min, msec;
+  23          void main(void)
+  24          {
+  25   1        if(BD == 0)     // Baudratengenerator noch nicht aktiv
+  26   1         init_seriell();    // serielle Kommunikation ermöglichen
+  27   1        init_timer0();
+  28   1        EAL=1;
+  29   1           
+  30   1        while(1)  // Endlos
+  31   1        {
+  32   2          ;
+  33   2        }
+  34   1      }
+  35          //***************************** F u n k t i o n e n ************************************
+  36          void init_seriell(void) 
+  37            {
+  38   1        SCON  = 0x50;   // SCON: mode 1, 8-bit UART, enable rcvr 
+  39   1        PCON |= 0x80;         // SMOD Bit setzen 
+  40   1        SRELH = 0x03;         // 9600 baud @ 10MHz für C515C
+  41   1        SRELL = 0xBF;
+  42   1        BD    = 1;    // Baudratengenerator verwenden
+  43   1        TI    = 1;            // TI:   "vorausgegangenes Transmit" beendet
+  44   1        }
+  45          void init_timer0(void)
+  46          { 
+  47   1        TMOD=TMOD&0xF0;
+  48   1        TMOD=TMOD|0x02;
+  49   1        TL0=89;  // nur Low-Anteil übertragen
+  50   1        TH0=89; // high nach low schieben, dann übertragen
+  51   1        TF0=0;
+  52   1        ET0=1;
+  53   1        TR0=1;
+  54   1      }
+C51 COMPILER V8.01   TIMER_03_VASILENKO                                                    11/22/2013 12:39:01 PAGE 2   
+
+  55          void timer0_int(void)interrupt 1
+  56          {
+  57   1         if(P3_2==0)
+  58   1         {
+  59   2          P3_2=1;
+  60   2          while(P3_3!=0)
+  61   2          {
+  62   3            count++;
+  63   3            if(count==1000) // Überprüfen ob 1 Sekunde erreicht wurde
+  64   3            { 
+  65   4              msec++;  // Sekunde hochzählen
+  66   4              if(msec==10)
+  67   4              {
+  68   5                sec++;
+  69   5                msec=0;
+  70   5              }
+  71   4              if(sec==60)
+  72   4              {
+  73   5                min++;
+  74   5                sec=0;
+  75   5              }
+  76   4              count=0;
+  77   4              if(msec==5||msec==0)
+  78   4              {
+  79   5                printstring("Zeit: ");
+  80   5                printuintdez(min);
+  81   5                printstring(":");
+  82   5                printuintdez(sec);
+  83   5                printstring(".");
+  84   5                printuintdez2(msec);
+  85   5                putchar('\n');
+  86   5              }
+  87   4              P4_0=P4_0^1;  // LED umschalten (toggle)
+  88   4            }
+  89   3          } 
+  90   2        }
+  91   1      }
+  92          void printuintdez(unsigned int x)
+  93          {
+  94   1        putchar(x%100/10+'0');
+  95   1        putchar(x%10+'0');
+  96   1      }
+  97          void printuintdez2(unsigned int x)
+  98          {
+  99   1        putchar(x%10+'0');
+ 100   1      }
+ 101          void putchar(char ch)
+ 102            {
+ 103   1        while(TI != 1); // voriges Transmit Ende abwarten
+ 104   1        TI=0;                 // für nächste Übertragung löschen
+ 105   1        SBUF=ch;    // Byte der Variablen ch seriell senden
+ 106   1        }
+ 107          void printstring(char *cp)
+ 108            {
+ 109   1        for(; *cp != '\0'; cp++)
+ 110   1             putchar(*cp);    // Zeichen seriell ausgeben
+ 111   1        }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    356    ----
+   CONSTANT SIZE    =     11    ----
+C51 COMPILER V8.01   TIMER_03_VASILENKO                                                    11/22/2013 12:39:01 PAGE 3   
+
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      8       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

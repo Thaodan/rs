@@ -1,0 +1,218 @@
+C51 COMPILER V8.01   VASILENKO                                                             12/11/2013 08:34:28 PAGE 1   
+
+
+C51 COMPILER V8.01, COMPILATION OF MODULE VASILENKO
+OBJECT MODULE PLACED IN Vasilenko.OBJ
+COMPILER INVOKED BY: C:\Program Files\Keil3\C51\BIN\C51.EXE Vasilenko.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          //=======================================================================================
+   2          // Jurij Vasilenko
+   3          // ITAM2
+   4          // 4. Dec 2013
+   5          //=======================================================================================
+   6          //******************************* Quelltextdateien *************************************
+   7          #include <Reg515c.h>
+   8          //********************************** Konstanten ****************************************
+   9          #define ENTER 0x0D
+  10          sbit  P3_2=P3^2;    // blau
+  11          sbit  P3_3=P3^3;    // rot
+  12          sbit  P3_4=P3^4;    // swr 
+  13          sbit  P3_5=P3^5;        // swl
+  14          sbit  P5_2=P5^2;    // LED Ziel 2  
+  15          sbit  P5_3=P5^3;    // LED Ziel 3
+  16          sbit  P5_4=P5^4;    // LED P5.4
+  17          sbit  P5_5=P5^5;        // LED P5.5
+  18          //******************************** globale Variablen ***********************************
+  19          unsigned long int sec;
+  20          unsigned char zstart=256-1000/6;  // zrun=trun/tclock      trun=100µs
+  21          unsigned int ladung;              // Vielfaches von 100µs zum nachladen
+  22          unsigned ziel;                    // 2=P3.2, 3=P3.3, 4=P3.4, 5=P3.5
+  23          unsigned int ad10bit;             // AD-Wandler-Ergebnis 10 Bit, min=0  max=2^10-1=1023
+  24          //****************************** Funktionsdeklarationen ********************************
+  25          void main(void);
+  26          void init_seriell(void);
+  27          void init_timer0(void);
+  28          void init_ad(void);
+  29          void putchar(char ch);
+  30          void printuintdez(unsigned int wert);
+  31          void printstring(char *stringanfang);
+  32          char getchar(void);
+  33          unsigned int getuintdez(void);
+  34          char tastertest(void);
+  35          //******************************** Hauptprogramm ***************************************
+  36          void main(void)                  // Timer zählt Sekunden per Interrupt 
+  37            {
+  38   1        if(BD == 0)                 // Baudratengenerator noch nicht aktiv
+  39   1          init_seriell();            // serielle Kommunikation ermöglichen
+  40   1        init_timer0();                 // Timer initialisieren
+  41   1        init_ad();
+  42   1        EAL=1;                        // Interrups generell freigeben
+  43   1        while(1)                      // endlos
+  44   1          {
+  45   2          printstring("\nErst Poti einstellen, dann Taster druecken! ");
+  46   2          ziel=tastertest();           // WARTE, gib zurück: 2=P3.2, 3=P3.3, 4=P4.4, 5=P3.5
+  47   2          printstring("\nZiel: ");
+  48   2          putchar(ziel+'0');
+  49   2          ADDATL=1;                     // starten der AD-Wandlungen durch *write*
+  50   2          while(BSY==1);                // abwarten, wenn Wandler beschäftigt
+  51   2          ladung=ad10bit*49;           // ladung bestimmt die Zeit bis zum Wechsel von P5.x
+  52   2          printstring("   Zeit: ");
+  53   2          printuintdez(ad10bit*49/10); // Sekunden mit 3 Nachkommastellen
+  54   2          printstring("zs");
+  55   2          TR0=1;                       // Timer starten;
+C51 COMPILER V8.01   VASILENKO                                                             12/11/2013 08:34:28 PAGE 2   
+
+  56   2          }
+  57   1        }
+  58          //***************************** F u n k t i o n e n ************************************
+  59          void init_seriell(void) 
+  60            {
+  61   1        SCON  = 0x50;      // SCON: mode 1, 8-bit UART, enable rcvr 
+  62   1        PCON |= 0x80;         // SMOD Bit setzen 
+  63   1        SRELH = 0x03;         // 9600 baud @ 10MHz für C515C
+  64   1        SRELL = 0xBF;
+  65   1        BD    = 1;          // Baudratengenerator verwenden
+  66   1        TI    = 1;            // TI:   "vorausgegangenes Transmit" beendet
+  67   1        }
+  68          //---------------------------------------------------------------------------------------
+  69          void init_timer0(void)
+  70            {
+  71   1        TMOD=TMOD&0xF0;   // Timer0 initialisieren
+  72   1        TMOD=TMOD|0x02;   // Modus 2, non-gated, Timer
+  73   1        TL0=zstart;        // Startwert
+  74   1        TH0=zstart;        // Reloadwert
+  75   1        TF0=0;            // Interrupt Flag löschen
+  76   1        ET0=1;            // Interrupt freigeben 
+  77   1        }
+  78          //---------------------------------------------------------------------------------------
+  79          void init_ad(void)
+  80            {
+  81   1        EADC=0;               // Interrupt vorübergehend sperren
+  82   1        IADC=0;               // Flag löschen
+  83   1        ADM=0;                // single mode
+  84   1        ADEX=0;               // Start durch *write* ADDATL, nicht durch P4.0
+  85   1        ADCON0&=0xF8;         // MX2...MX0 löschen
+  86   1        ADCON0|=0x03;         // Auswahl des Analogeingangs P6.3/AIN3
+  87   1        ADCON1|=0x80;         // Takt-Teiler ADCL für fadc<=2MHz (1,25MHz bei fosc=10MHz)
+  88   1        EADC=1;               // AD-Interrupt freigeben
+  89   1        }
+  90          //---------------------------------------------------------------------------------------
+  91          void putchar(char ch)
+  92            {
+  93   1        while(TI != 1);    // voriges Transmit Ende abwarten
+  94   1        TI=0;              // für nächste Übertragung löschen
+  95   1        SBUF=ch;          // Byte der Variablen ch seriell senden
+  96   1        }
+  97          //--------------------------------------------------------------------------------------
+  98          void printuintdez(unsigned int wert)  // 00,000 .. 65,535 seriell ausgeben
+  99            {               
+ 100   1        putchar(wert%10000/1000+'0');             
+ 101   1        putchar(wert%1000/100+'0');                            
+ 102   1        }
+ 103          //---------------------------------------------------------------------------------------
+ 104          void printstring(char *cp)
+ 105            {
+ 106   1        for(; *cp != '\0'; cp++)
+ 107   1             putchar(*cp);    // Zeichen seriell ausgeben
+ 108   1        }
+ 109          //---------------------------------------------------------------------------------------
+ 110          char getchar(void)
+ 111            {
+ 112   1        char cget;
+ 113   1      
+ 114   1        do{  
+ 115   2          while(!RI);   // Receive Ende abwarten (in dScope Serial Window TASTENDRUCK!)
+ 116   2          cget=SBUF;      // seriell empfangenes Byte in Variable cget übernehmen
+ 117   2          RI=0;        // Meldung: kann neue Daten empfangen
+C51 COMPILER V8.01   VASILENKO                                                             12/11/2013 08:34:28 PAGE 3   
+
+ 118   2          }while(cget==0x11);
+ 119   1        return(cget);
+ 120   1        }
+ 121          //---------------------------------------------------------------------------------------
+ 122          unsigned int getuintdez(void)
+ 123            {
+ 124   1        int wert=0;
+ 125   1        char c;
+ 126   1      
+ 127   1        while(1)
+ 128   1          {
+ 129   2          c=getchar();
+ 130   2          if(c == ENTER)
+ 131   2            break;
+ 132   2          putchar(c);
+ 133   2          wert=wert*10+c-'0';
+ 134   2          }
+ 135   1        return(wert);
+ 136   1        }
+ 137          //--------------------------------------------------------------------------------------
+ 138          char tastertest(void)
+ 139            {
+ 140   1        static unsigned char tastalt=0xC3;   // dummy Startwert
+ 141   1        unsigned char tast, step=0;          // step= 2, 3, 4, 5
+ 142   1      
+ 143   1        while(step == 0)
+ 144   1          {
+ 145   2          tast=P3&0x3C;       // signifikante Positionen einlesen: 00xx xx00
+ 146   2          if(tast == tastalt)
+ 147   2            continue;
+ 148   2          if(tast == 0x38)    // P3.2 gedrückt: 0011 1000
+ 149   2            step=2;
+ 150   2          if(tast == 0x34)    // P3.3 gedrückt: 0011 0100
+ 151   2            step=3;
+ 152   2        if(tast == 0x2C)    // P3.4 gedrückt 
+ 153   2          step=4;
+ 154   2        if(tast == 0x1C)    // P3.5 gedrückt
+ 155   2          step=5;
+ 156   2          tastalt=tast;       // aktualisieren
+ 157   2          }
+ 158   1        P5=P5|0x3C;            // LEDs P5.2, P5.3, P5.4, P5.5 AUS
+ 159   1        return(step);
+ 160   1        }
+ 161          //---------------------------------------------------------------------------------------
+ 162          //----------------------------- I n t e r r u p t ---------------------------------------
+ 163          //---------------------------------------------------------------------------------------
+ 164          void timer1_int(void) interrupt 1   // alle 100µs ein Interrupt
+ 165            {                             // TF0 wird durch Hardware zurückgesetzt
+ 166   1        static unsigned int teiler;       // je Schritt 100µs  
+ 167   1      
+ 168   1        if(teiler == 0)          // Zeit abgelaufen
+ 169   1          {
+ 170   2          teiler=ladung;         // nachladen zwischen
+ 171   2          if(ziel == 2)
+ 172   2            P5_2=~P5_2;          // P5.2 toggle
+ 173   2          if(ziel == 3)
+ 174   2            P5_3=~P5_3;          // P5.3 toggle
+ 175   2          if(ziel == 4)
+ 176   2          P5_4=~P5_4;          // P5.4 toggle
+ 177   2        if(ziel == 5)
+ 178   2          P5_5=~P5_5;      // P5.5 toggle
+ 179   2          }
+C51 COMPILER V8.01   VASILENKO                                                             12/11/2013 08:34:28 PAGE 4   
+
+ 180   1        teiler--;                // um 100µs herunterzählen
+ 181   1        }
+ 182          //---------------------------------------------------------------------------------------
+ 183          void ad_int(void) interrupt 8
+ 184            {
+ 185   1        IADC=0;               // Interrupt-Flag IADC zurücksetzen (nicht autom.) 
+ 186   1        ad10bit=ADDATH<<8;    // High Anteil
+ 187   1        ad10bit|=ADDATL;      // Low Anteil 2 m.s,Bits
+ 188   1        ad10bit>>=6;          // Normieren
+ 189   1        }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    489    ----
+   CONSTANT SIZE    =     67    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     14    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

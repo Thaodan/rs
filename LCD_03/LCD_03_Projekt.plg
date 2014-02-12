@@ -1,0 +1,18 @@
+<html>
+<body>
+<pre>
+<h1>µVision3 Build Log</h1>
+<h2>Project:</h2>
+D:\Mittelstufe\Rechner & Systemtechnik\LCD_03\LCD_03_Projekt.uv2
+Project File Date:  01/29/2014
+
+<h2>Output:</h2>
+Build target 'Hardware'
+linking...
+Program Size: data=16.0 xdata=0 code=1005
+"LCD_03_Projekt" - 0 Error(s), 0 Warning(s).
+Build target 'Hardware'
+compiling LCD_03.c...
+linking...
+Program Size: data=16.0 xdata=0 code=1005
+"LCD_03_Projekt" - 0 Error(s), 0 Warning(s).

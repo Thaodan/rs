@@ -1,0 +1,253 @@
+C51 COMPILER V8.01   LCD_01                                                                12/18/2013 10:53:19 PAGE 1   
+
+
+C51 COMPILER V8.01, COMPILATION OF MODULE LCD_01
+OBJECT MODULE PLACED IN LCD_01.OBJ
+COMPILER INVOKED BY: C:\Program Files\Keil3\C51\BIN\C51.EXE LCD_01.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          //---------------------------------------------------------------------------------------
+   2          //    LCD am Datenbus des C515C mit Busy-Abfrage 
+   3          //    alphanumerisches LCD EA DIP204-4NLED   20 Char x 4 Zeilen
+   4          
+   5          //--jak13--------------------------------------------------------------------------------
+   6          //-------------------------------- Quelltextdateien -------------------------------------
+   7          #include <Reg515c.h>
+   8          //...........................Adress Spezifikationen......................................
+   9          sbit    P1_0    =  P1^0;     // Signaleingang
+  10          //-------------------------------- Symbolische Konstanten -------------------------------
+  11          #define LCD_data3 ((unsigned char *)0x2FF00L) // /CS3   benutzter Adressbereich!
+  12          #define LCD_data2 ((unsigned char *)0x2FE00L)   // /CS2
+  13          #define LCD_data1 ((unsigned char *)0x2FD00L)   // /CS1
+  14          //                                    ^          siehe Badischweiler  MC-Tools 7 S.60
+  15          //                                  Speichertyp: 4=data,1=idata,3=pdata,2=xdata,5=code
+  16          #define WRITE_INS   ((unsigned char *)0x2FF00L) // siehe Badischweiler\LCD Simulation
+  17          #define READ_INS    ((unsigned char *)0x2FF01L) //  \LCD_demo\c51.de\Teil2
+  18          #define WRITE_DATA  ((unsigned char *)0x2FF02L) //  \Software\LCD\LCD_Example\lcd_def.h
+  19          #define READ_DATA   ((unsigned char *)0x2FF03L) // A1-->RS   A0-->R/W
+  20          #define ENTER 0x0D
+  21          //-------------------------------- Adress Spezifikationen -------------------------------
+  22          sbit    P3_2    =  P3^2;        // P3.2  Taster blau
+  23          //-------------------------------- globale Variablen ------------------------------------
+  24          unsigned char position; // 0..1..80
+  25          unsigned char c;
+  26          //-------------------------------- P r o t o t y p e n ----------------------------------
+  27          void main(void);
+  28          void init_seriell(void);
+  29          void init_lcd(void);
+  30          void wait(unsigned char ms);// wartet 0..255 ms
+  31          char waitbsy(void);     // wartet bis Busy Flag gelöscht, Rückgabe Adresse DD oder CG
+  32          void gotozs(unsigned char z, unsigned char s);
+  33          void putlcd(char ch);
+  34          void printlcd(char *stringanfang);
+  35          void printstring(char *stringanfang);
+  36          void printbytedez(unsigned char zahl);    
+  37          void putchar(char ch);
+  38          char getchar(void);
+  39          unsigned int getuintdez(void);
+  40          //------------------------------ H a u p t p r o g r a m m ------------------------------
+  41          void main(void) 
+  42            {
+  43   1        
+  44   1        if(BD == 0)
+  45   1          init_seriell();
+  46   1        init_lcd();                   // LCD 4 Zeilen init
+  47   1        EAL=1;
+  48   1        printstring("Geben Sie etwas ein: ");
+  49   1        putchar('\n');
+  50   1        while(1)
+  51   1          {
+  52   2            c=getchar();
+  53   2            putchar(c);
+  54   2            putlcd(c);
+  55   2          }
+C51 COMPILER V8.01   LCD_01                                                                12/18/2013 10:53:19 PAGE 2   
+
+  56   1        for(;;);  // endlos
+  57   1        }
+  58          //---------------------------------------------------------------------------------------
+  59          void init_lcd(void)
+  60            {
+  61   1        wait(15);         // nach Power ON erforderlich
+  62   1        *WRITE_INS=0x34;  // Function Set: 8 Bit, RE=1
+  63   1        wait(1);    // erforderlich 39µs
+  64   1        *WRITE_INS=0x09;  // extended Function Set: 4 Zeilen Modus
+  65   1        wait(1);    // erforderlich 39µs
+  66   1        *WRITE_INS=0x30;  // 8 Bit, RE=0, no low power 
+  67   1        wait(1);    // erforderlich 39µs
+  68   1        *WRITE_INS=0x0F;  // Display ein, Cursor ein, Cursor blinken
+  69   1        wait(1);    // erforderlich 39µs
+  70   1        *WRITE_INS=0x01;  // Display löschen, Cursor auf 1.Spalte von 1.Zeile
+  71   1        wait(2);          // erforderlich 1530µs
+  72   1        *WRITE_INS=0x06;  // Entry Mode Set: Cursor Auto-Increment
+  73   1        wait(1);    // erforderlich 39µs
+  74   1        }
+  75          //---------------------------------------------------------------------------------------
+  76          void wait(unsigned char ms)
+  77            {
+  78   1        unsigned int t;
+  79   1      
+  80   1        while(ms > 0)
+  81   1          {
+  82   2          for(t=210; t>0; t--);
+  83   2          ms--;
+  84   2          }
+  85   1        }
+  86          //---------------------------------------------------------------------------------------
+  87          char waitbsy(void)
+  88            {
+  89   1        char bsy_adr;     // Vorzeichen Bit ist Busy Flag
+  90   1      
+  91   1        while(1)
+  92   1          {
+  93   2          bsy_adr=*READ_INS;    // Busy Flag und Adresse lesen
+  94   2          if((bsy_adr&0x80) == 0) // Busy Flag gelöscht
+  95   2            break;
+  96   2          }
+  97   1        return bsy_adr;   // 7:bsy,  6..0 RAM Adress
+  98   1        }
+  99          //---------------------------------------------------------------------------------------
+ 100          void gotozs(unsigned char z, unsigned char s)
+ 101            {
+ 102   1        z=(z+s/20)%4;     // auch mit z>3 und s>19 nutzbar
+ 103   1        s=s%20;
+ 104   1        position=z*20+s;
+ 105   1        *WRITE_INS=0x80|(position/20*32+position%20); // Cursor auf Position
+ 106   1        waitbsy();                // warten bis Busy Flag gelöscht
+ 107   1        }
+ 108          //---------------------------------------------------------------------------------------
+ 109          void putlcd(char ch)
+ 110            {
+ 111   1        if(ch != 0x0D && ch != '\b' && ch != '\t')
+ 112   1          {
+ 113   2          *WRITE_DATA=ch;
+ 114   2          waitbsy();      // warten bis Busy Flag gelöscht
+ 115   2          position=++position%80;       // neue Cursorposition
+ 116   2          *WRITE_INS=0x80|(position/20*32+position%20); // Cursor auf Position
+ 117   2          waitbsy();            // warten bis Busy Flag gelöscht
+C51 COMPILER V8.01   LCD_01                                                                12/18/2013 10:53:19 PAGE 3   
+
+ 118   2          return;
+ 119   2          }
+ 120   1        if(ch == 0x0D)
+ 121   1          {
+ 122   2          if(position/20 == 0)
+ 123   2            position=20;
+ 124   2          else if(position/20 == 1)
+ 125   2            position=40;
+ 126   2          else if(position/20 == 2)
+ 127   2            position=60;
+ 128   2          else if(position/20 == 3)
+ 129   2            position=0;
+ 130   2          }
+ 131   1        if(ch == '\b'  && position%20 != 0)
+ 132   1          {
+ 133   2          position--;
+ 134   2          *WRITE_INS=0x80|(position/20*32+position%20); // Cursor auf Position
+ 135   2          waitbsy();            // warten bis Busy Flag gelöscht
+ 136   2          *WRITE_DATA=' ';
+ 137   2          waitbsy();        // warten bis Busy Flag gelöscht
+ 138   2          *WRITE_INS=0x80|(position/20*32+position%20); // Cursor auf Position
+ 139   2          waitbsy();            // warten bis Busy Flag gelöscht
+ 140   2          return;
+ 141   2          }
+ 142   1        if(ch == '\t')
+ 143   1          {
+ 144   2          if(position >= 70)      // am Ende
+ 145   2            position=0;
+ 146   2          else if(position%20 < 10)
+ 147   2            position=position/20*20+10; // in derselben Zeile
+ 148   2          else
+ 149   2            position=(position/20+1)*20;  // in der nächsten Zeile
+ 150   2          }
+ 151   1        *WRITE_INS=0x80|(position/20*32+position%20); // Cursor auf Position
+ 152   1        waitbsy();            // warten bis Busy Flag gelöscht
+ 153   1        }
+ 154          //---------------------------------------------------------------------------------------
+ 155          void init_seriell(void) 
+ 156            {
+ 157   1        SCON  = 0x50;     // SCON: mode 1, 8-bit UART, enable rcvr
+ 158   1        PCON |= 0x80;           // SMOD Bit setzen
+ 159   1        SRELH = 0x03;           // 9600 baud @ 10MHz für C515C entspricht
+ 160   1        SRELL = 0xBF;     // dScope COMMAND: XTAL=20000000  (80515A)
+ 161   1        BD    = 1;      // Baudratengenerator verwenden
+ 162   1        TI    = 1;              // TI:   "vorausgegangenes Transmit" beendet
+ 163   1        }
+ 164          //---------------------------------------------------------------------------------------
+ 165          void putchar(char ch)
+ 166            {
+ 167   1        while(TI != 1);   // voriges Transmit Ende abwarten
+ 168   1        TI=0;                   // für nächste Übertragung löschen
+ 169   1        SBUF=ch;      // Byte seriell senden
+ 170   1        }
+ 171          //---------------------------------------------------------------------------------------
+ 172          void printstring(char *cp)
+ 173            {
+ 174   1        for(; *cp != '\0'; cp++)
+ 175   1          putchar(*cp);
+ 176   1        }
+ 177          //---------------------------------------------------------------------------------------
+ 178          void printlcd(char *cp)
+ 179            {
+C51 COMPILER V8.01   LCD_01                                                                12/18/2013 10:53:19 PAGE 4   
+
+ 180   1        for(; *cp != '\0'; cp++)
+ 181   1          putlcd(*cp);
+ 182   1        }
+ 183          //---------------------------------------------------------------------------------------
+ 184          void printbytedez(unsigned char zahl)
+ 185            {
+ 186   1        unsigned int ziffer;
+ 187   1      
+ 188   1        ziffer=zahl/100;              // Hunderter Ziffer ermitteln
+ 189   1        putchar(ziffer + '0');        // ASCII seriell ausgeben
+ 190   1        zahl=zahl%100;                // Hunderterr Ziffer entfernen
+ 191   1        ziffer=zahl/10;               // Zehner Ziffer ermitteln
+ 192   1        putchar(ziffer + '0');        // ASCII seriell ausgeben
+ 193   1        zahl=zahl%10;                 // Zehner Ziffer entfernen
+ 194   1        ziffer=zahl;                  // Einer Ziffer
+ 195   1        putchar(ziffer + '0');        // ASCII seriell ausgeben
+ 196   1        } 
+ 197          //---------------------------------------------------------------------------------------
+ 198          char getchar(void)
+ 199            {
+ 200   1        char cget;
+ 201   1      
+ 202   1        do{  
+ 203   2          while(!RI);           // Receive Ende abwarten (in dScope Serial Window TASTENDRUCK!)
+ 204   2          cget=SBUF;      // seriell empfangenes Byte in Variable cget übernehmen
+ 205   2          RI=0;     // Meldung: kann neue Daten empfangen
+ 206   2          }while(cget==0x11);
+ 207   1        return(cget);
+ 208   1        }
+ 209          //---------------------------------------------------------------------------------------
+ 210          unsigned int getuintdez(void)
+ 211            {
+ 212   1        int wert=0;
+ 213   1        char c;
+ 214   1      
+ 215   1        while(1)
+ 216   1          {
+ 217   2          c=getchar();
+ 218   2          if(c == ENTER)
+ 219   2            break;
+ 220   2          putchar(c);
+ 221   2          wert=wert*10+c-'0';
+ 222   2          }
+ 223   1        return(wert);
+ 224   1        }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    563    ----
+   CONSTANT SIZE    =     22    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

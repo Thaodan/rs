@@ -1,0 +1,390 @@
+<html>
+<body>
+<pre>
+<h1>µVision3 Build Log</h1>
+<h2>Project:</h2>
+D:\ITA\Mittelstufe\RS\Enc_02\Enc_02_Projek.uv2
+Project File Date:  12/11/2013
+
+<h2>Output:</h2>
+Build target 'Simulation'
+compiling enc_02.c...
+linking...
+Program Size: data=14.4 xdata=0 code=686
+"Enc_02_Projek" - 0 Error(s), 0 Warning(s).
+Build target 'Simulation'
+compiling enc_02.c...
+linking...
+Program Size: data=18.0 xdata=0 code=793
+"Enc_02_Projek" - 0 Error(s), 0 Warning(s).
+Build target 'Simulation'
+compiling enc_02.c...
+linking...
+Program Size: data=18.0 xdata=0 code=793
+"Enc_02_Projek" - 0 Error(s), 0 Warning(s).
+Build target 'Simulation'
+compiling enc_02.c...
+linking...
+Program Size: data=18.0 xdata=0 code=793
+"Enc_02_Projek" - 0 Error(s), 0 Warning(s).
+Build target 'Simulation'
+compiling enc_02.c...
+linking...
+Program Size: data=18.0 xdata=0 code=793
+"Enc_02_Projek" - 0 Error(s), 0 Warning(s).
+Build target 'Simulation'
+compiling enc_02.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+    ADDRESS: 0939H
+Program Size: data=18.0 xdata=0 code=864
+"Enc_02_Projek" - 0 Error(s), 2 Warning(s).
+Build target 'Simulation'
+compiling enc_02.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+    ADDRESS: 0939H
+Program Size: data=18.0 xdata=0 code=864
+"Enc_02_Projek" - 0 Error(s), 2 Warning(s).
+Build target 'Simulation'
+compiling enc_02.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+    ADDRESS: 0939H
+Program Size: data=18.0 xdata=0 code=864
+"Enc_02_Projek" - 0 Error(s), 2 Warning(s).
+Build target 'Hardware'
+compiling enc_02.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+    ADDRESS: 0939H
+Program Size: data=18.0 xdata=0 code=864
+"Enc_02_Projek" - 0 Error(s), 2 Warning(s).
+Build target 'Hardware'
+compiling enc_02.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+    ADDRESS: 0939H
+Program Size: data=18.0 xdata=0 code=864
+"Enc_02_Projek" - 0 Error(s), 2 Warning(s).
+Build target 'Hardware'
+compiling enc_02.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+    ADDRESS: 0939H
+Program Size: data=18.0 xdata=0 code=864
+"Enc_02_Projek" - 0 Error(s), 2 Warning(s).
+Build target 'Hardware'
+compiling enc_02.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+    ADDRESS: 0939H
+Program Size: data=18.0 xdata=0 code=864
+"Enc_02_Projek" - 0 Error(s), 2 Warning(s).
+Build target 'Hardware'
+compiling enc_02.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+    ADDRESS: 0939H
+Program Size: data=18.0 xdata=0 code=864
+"Enc_02_Projek" - 0 Error(s), 2 Warning(s).
+Build target 'Hardware'
+compiling enc_02.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+    ADDRESS: 0939H
+Program Size: data=18.0 xdata=0 code=864
+"Enc_02_Projek" - 0 Error(s), 2 Warning(s).
+Build target 'Simulation'
+compiling enc_02.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+    ADDRESS: 0939H
+Program Size: data=18.0 xdata=0 code=864
+"Enc_02_Projek" - 0 Error(s), 2 Warning(s).
+Build target 'Simulation'
+compiling enc_02.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+    ADDRESS: 0939H
+Program Size: data=18.0 xdata=0 code=864
+"Enc_02_Projek" - 0 Error(s), 2 Warning(s).
+Build target 'Simulation'
+compiling enc_02.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+    ADDRESS: 0939H
+Program Size: data=18.0 xdata=0 code=853
+"Enc_02_Projek" - 0 Error(s), 2 Warning(s).
+Build target 'Simulation'
+compiling enc_02.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+    ADDRESS: 0939H
+Program Size: data=18.0 xdata=0 code=859
+"Enc_02_Projek" - 0 Error(s), 2 Warning(s).
+Build target 'Hardware'
+compiling enc_02.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+    ADDRESS: 0939H
+Program Size: data=18.0 xdata=0 code=859
+"Enc_02_Projek" - 0 Error(s), 2 Warning(s).
+Build target 'Hardware'
+compiling enc_02.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+    ADDRESS: 0939H
+Program Size: data=18.0 xdata=0 code=859
+"Enc_02_Projek" - 0 Error(s), 2 Warning(s).
+Build target 'Hardware'
+compiling enc_02.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+    ADDRESS: 0939H
+Program Size: data=18.0 xdata=0 code=859
+"Enc_02_Projek" - 0 Error(s), 2 Warning(s).
+Build target 'Simulation'
+compiling enc_02.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+    ADDRESS: 0939H
+Program Size: data=18.0 xdata=0 code=859
+"Enc_02_Projek" - 0 Error(s), 2 Warning(s).
+Build target 'Simulation'
+compiling enc_02.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+    ADDRESS: 0939H
+Program Size: data=18.0 xdata=0 code=859
+"Enc_02_Projek" - 0 Error(s), 2 Warning(s).
+Build target 'Simulation'
+compiling enc_02.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+    ADDRESS: 0939H
+Program Size: data=18.0 xdata=0 code=859
+"Enc_02_Projek" - 0 Error(s), 2 Warning(s).
+Build target 'Simulation'
+compiling enc_02.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+    ADDRESS: 0939H
+Program Size: data=18.0 xdata=0 code=859
+"Enc_02_Projek" - 0 Error(s), 2 Warning(s).
+Build target 'Simulation'
+compiling enc_02.c...
+linking...
+Program Size: data=18.0 xdata=0 code=849
+"Enc_02_Projek" - 0 Error(s), 0 Warning(s).
+Build target 'Hardware'
+compiling enc_02.c...
+linking...
+Program Size: data=18.0 xdata=0 code=849
+"Enc_02_Projek" - 0 Error(s), 0 Warning(s).
+Build target 'Hardware'
+compiling enc_02.c...
+linking...
+Program Size: data=18.0 xdata=0 code=849
+"Enc_02_Projek" - 0 Error(s), 0 Warning(s).
+Build target 'Hardware'
+compiling enc_02.c...
+linking...
+Program Size: data=18.0 xdata=0 code=849
+"Enc_02_Projek" - 0 Error(s), 0 Warning(s).
+Build target 'Hardware'
+compiling enc_02.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+    ADDRESS: 0939H
+Program Size: data=18.0 xdata=0 code=861
+"Enc_02_Projek" - 0 Error(s), 2 Warning(s).
+Build target 'Hardware'
+compiling enc_02.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+    ADDRESS: 0939H
+Program Size: data=18.0 xdata=0 code=861
+"Enc_02_Projek" - 0 Error(s), 2 Warning(s).
+Build target 'Hardware'
+compiling enc_02.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _PRINTSTRING
+    MODULE:  enc_02.obj (ENC_02)
+    ADDRESS: 0939H
+Program Size: data=18.0 xdata=0 code=858
+"Enc_02_Projek" - 0 Error(s), 2 Warning(s).
+Build target 'Hardware'
+compiling enc_02.c...
+linking...
+Program Size: data=18.0 xdata=0 code=902
+"Enc_02_Projek" - 0 Error(s), 0 Warning(s).
+Build target 'Hardware'
+compiling enc_02.c...
+linking...
+Program Size: data=18.0 xdata=0 code=903
+"Enc_02_Projek" - 0 Error(s), 0 Warning(s).
+Build target 'Hardware'
+compiling enc_02.c...
+ENC_02.C(104): error C202: 'wert': undefined identifier
+ENC_02.C(106): error C202: 'wert': undefined identifier
+ENC_02.C(109): error C202: 'wert': undefined identifier
+ENC_02.C(111): error C202: 'wert': undefined identifier
+Target not created
+Build target 'Hardware'
+compiling enc_02.c...
+linking...
+Program Size: data=18.0 xdata=0 code=957
+"Enc_02_Projek" - 0 Error(s), 0 Warning(s).
+Build target 'Hardware'
+compiling enc_02.c...
+linking...
+Program Size: data=18.0 xdata=0 code=1019
+"Enc_02_Projek" - 0 Error(s), 0 Warning(s).
+Build target 'Hardware'
+compiling enc_02.c...
+linking...
+Program Size: data=18.0 xdata=0 code=1019
+"Enc_02_Projek" - 0 Error(s), 0 Warning(s).
+Build target 'Hardware'
+compiling enc_02.c...
+linking...
+Program Size: data=18.0 xdata=0 code=1019
+"Enc_02_Projek" - 0 Error(s), 0 Warning(s).
+Build target 'Hardware'
+compiling enc_02.c...
+linking...
+Program Size: data=18.0 xdata=0 code=1019
+"Enc_02_Projek" - 0 Error(s), 0 Warning(s).
+Build target 'Hardware'
+compiling enc_02.c...
+linking...
+Program Size: data=18.0 xdata=0 code=1019
+"Enc_02_Projek" - 0 Error(s), 0 Warning(s).
+Build target 'Hardware'
+compiling enc_02.c...
+linking...
+Program Size: data=18.0 xdata=0 code=1019
+"Enc_02_Projek" - 0 Error(s), 0 Warning(s).
+Build target 'Hardware'
+compiling enc_02.c...
+linking...
+Program Size: data=18.0 xdata=0 code=1019
+"Enc_02_Projek" - 0 Error(s), 0 Warning(s).
+</pre>
+</body>
+</html>

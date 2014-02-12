@@ -1,0 +1,56 @@
+### uVision2 Project, (C) Keil Software
+### Do not modify !
+
+ cExt (*.c)
+ aExt (*.s*; *.src; *.a*)
+ oExt (*.obj)
+ lExt (*.lib)
+ tExt (*.txt; *.h; *.inc)
+ pExt (*.plm)
+ CppX (*.cpp)
+ DaveTm { 0,0,0,0,0,0,0,0 }
+
+Target (Simulation), 0x0000 // Tools: 'MCS-51'
+Target (Hardware), 0x0000 // Tools: 'MCS-51'
+GRPOPT 1,(Source Group 1),1,0,0
+
+OPTFFF 1,1,1,2,0,35,35,0,<.\IO_04.c><IO_04.c> { 44,0,0,0,0,0,0,0,1,0,0,0,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,12,0,0,0,234,2,0,0,152,2,0,0 }
+
+
+TARGOPT 1, (Simulation)
+ CLK51=10000000
+  OPTTT 1,1,1,0
+  OPTHX 0,65535,0,0,0
+  OPTLX 120,65,8,<.\>
+  OPTOX 16
+  OPTLT 1,1,1,0,1,1,0,1,0,0,0,0
+  OPTXL 1,1,1,1,1,1,1,0,0
+  OPTFL 1,0,0
+  OPTBL 0,(C500 Instruction Set Manual)<DATASHTS\INFINEON\C500_AISM.PDF>
+  OPTBL 1,(User's Manual)<DATASHTS\INFINEON\C515C_UM.PDF>
+  OPTDL (S8051.DLL)()(D500.DLL)(-p515C)(S8051.DLL)()(T500.DLL)(-p515C)
+  OPTDBG 48125,0,()()()()(.\debug.ini)()()()()() (BIN\MON51.DLL)()()()
+  OPTDF 0x40000002
+  OPTLE <>
+  OPTLC <>
+EndOpt
+
+TARGOPT 2, (Hardware)
+ CLK51=10000000
+  OPTTT 1,1,1,0
+  OPTHX 0,65535,0,0,0
+  OPTLX 120,65,8,<.\>
+  OPTOX 16
+  OPTLT 1,1,1,0,1,1,0,1,0,0,0,0
+  OPTXL 1,1,1,1,1,1,1,0,0
+  OPTFL 1,0,1
+  OPTBL 0,(C500 Instruction Set Manual)<DATASHTS\INFINEON\C500_AISM.PDF>
+  OPTBL 1,(User's Manual)<DATASHTS\INFINEON\C515C_UM.PDF>
+  OPTDL (S8051.DLL)()(D500.DLL)(-p515C)(S8051.DLL)()(T500.DLL)(-p515C)
+  OPTDBG 49150,0,()()()()()()()()()() (BIN\MON51.DLL)()()()
+  OPTKEY 0,(MON51)(-S1 -B9600 -O15)
+  OPTDF 0x40000082
+  OPTLE <>
+  OPTLC <>
+EndOpt
+

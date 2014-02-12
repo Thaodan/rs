@@ -1,0 +1,355 @@
+BL51 BANKED LINKER/LOCATER V6.00                                                        12/11/2013  08:34:28  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.00, INVOKED BY:
+C:\PROGRAM FILES\KEIL3\C51\BIN\BL51.EXE Vasilenko.obj TO Vasilenko_Projekt RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  Vasilenko.obj (VASILENKO)
+  C:\PROGRAM FILES\KEIL3\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\PROGRAM FILES\KEIL3\C51\LIB\C51S.LIB (?C?CLDPTR)
+  C:\PROGRAM FILES\KEIL3\C51\LIB\C51S.LIB (?C?IMUL)
+  C:\PROGRAM FILES\KEIL3\C51\LIB\C51S.LIB (?C?UIDIV)
+  C:\PROGRAM FILES\KEIL3\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  Vasilenko_Projekt (VASILENKO)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     000EH     UNIT         ?DT?VASILENKO
+            IDATA   0016H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     0008H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+                    000EH     0035H                  *** GAP ***
+            CODE    0043H     0003H     ABSOLUTE     
+                    0046H     07BAH                  *** GAP ***
+            CODE    0800H     008CH     UNIT         ?C_C51STARTUP
+            CODE    088CH     0080H     UNIT         ?C?LIB_CODE
+            CODE    090CH     0071H     UNIT         ?PR?MAIN?VASILENKO
+            CODE    097DH     0043H     UNIT         ?CO?VASILENKO
+            CODE    09C0H     0041H     UNIT         ?PR?TIMER1_INT?VASILENKO
+            CODE    0A01H     003EH     UNIT         ?PR?_PRINTUINTDEZ?VASILENKO
+            CODE    0A3FH     0038H     UNIT         ?PR?AD_INT?VASILENKO
+            CODE    0A77H     0037H     UNIT         ?PR?GETUINTDEZ?VASILENKO
+            CODE    0AAEH     002CH     UNIT         ?PR?TASTERTEST?VASILENKO
+            CODE    0ADAH     0014H     UNIT         ?PR?INIT_AD?VASILENKO
+            CODE    0AEEH     0013H     UNIT         ?PR?_PRINTSTRING?VASILENKO
+            CODE    0B01H     0011H     UNIT         ?PR?INIT_SERIELL?VASILENKO
+            CODE    0B12H     0011H     UNIT         ?PR?INIT_TIMER0?VASILENKO
+            CODE    0B23H     000DH     UNIT         ?PR?GETCHAR?VASILENKO
+            CODE    0B30H     0008H     UNIT         ?PR?_PUTCHAR?VASILENKO
+            CODE    0B38H     0007H     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   Vasilenko_Projekt (VASILENKO)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+BL51 BANKED LINKER/LOCATER V6.00                                                      12/11/2013  08:34:28  PAGE 2
+
+
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?VASILENKO
+  +--> ?C_INITSEG
+
+?PR?MAIN?VASILENKO
+  +--> ?PR?INIT_SERIELL?VASILENKO
+  +--> ?PR?INIT_TIMER0?VASILENKO
+  +--> ?PR?INIT_AD?VASILENKO
+  +--> ?CO?VASILENKO
+  +--> ?PR?_PRINTSTRING?VASILENKO
+  +--> ?PR?TASTERTEST?VASILENKO
+  +--> ?PR?_PUTCHAR?VASILENKO
+  +--> ?PR?_PRINTUINTDEZ?VASILENKO
+
+?PR?_PRINTSTRING?VASILENKO
+  +--> ?PR?_PUTCHAR?VASILENKO
+
+?PR?_PRINTUINTDEZ?VASILENKO
+  +--> ?PR?_PUTCHAR?VASILENKO
+
+
+
+SYMBOL TABLE OF MODULE:  Vasilenko_Projekt (VASILENKO)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        VASILENKO
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:000BH         PUBLIC        ladung
+  D:00BAH         PUBLIC        SRELH
+  D:0090H         PUBLIC        P1
+  C:09C0H         PUBLIC        timer1_int
+  D:00B0H         PUBLIC        P3
+  D:00AAH         PUBLIC        SRELL
+  D:00E8H         PUBLIC        P4
+  D:00F8H         PUBLIC        P5
+  B:00D8H.7       PUBLIC        BD
+  C:0B01H         PUBLIC        init_seriell
+  D:00A8H         PUBLIC        IEN0
+  B:00B8H.0       PUBLIC        EADC
+  D:00B8H         PUBLIC        IEN1
+  B:00C0H.0       PUBLIC        IADC
+  B:00F8H.2       PUBLIC        P5_2
+  D:00D8H         PUBLIC        ADCON0
+  B:00F8H.3       PUBLIC        P5_3
+  D:00DCH         PUBLIC        ADCON1
+  C:0A01H         PUBLIC        _printuintdez
+  B:00F8H.4       PUBLIC        P5_4
+  B:00F8H.5       PUBLIC        P5_5
+  B:0098H.0       PUBLIC        RI
+  B:0098H.1       PUBLIC        TI
+  B:00D8H.5       PUBLIC        ADEX
+  C:090CH         PUBLIC        main
+  D:00D9H         PUBLIC        ADDATH
+  C:0AEEH         PUBLIC        _printstring
+BL51 BANKED LINKER/LOCATER V6.00                                                      12/11/2013  08:34:28  PAGE 3
+
+
+  D:000DH         PUBLIC        zstart
+  D:00DAH         PUBLIC        ADDATL
+  D:0087H         PUBLIC        PCON
+  D:0099H         PUBLIC        SBUF
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  D:000EH         PUBLIC        ziel
+  D:0010H         PUBLIC        sec
+  B:00A8H.1       PUBLIC        ET0
+  C:0A77H         PUBLIC        getuintdez
+  B:0088H.5       PUBLIC        TF0
+  D:008CH         PUBLIC        TH0
+  D:008AH         PUBLIC        TL0
+  B:00D8H.3       PUBLIC        ADM
+  B:00A8H.7       PUBLIC        EAL
+  B:0088H.4       PUBLIC        TR0
+  C:0AAEH         PUBLIC        tastertest
+  C:0B30H         PUBLIC        _putchar
+  C:0ADAH         PUBLIC        init_ad
+  C:0B23H         PUBLIC        getchar
+  D:00C8H         PUBLIC        T2CON
+  D:0014H         PUBLIC        ad10bit
+  C:0B12H         PUBLIC        init_timer0
+  B:00D8H.4       PUBLIC        BSY
+  C:0A3FH         PUBLIC        ad_int
+  D:00D0H         PUBLIC        PSW
+  D:00C0H         PUBLIC        IRCON
+  -------         PROC          MAIN
+  C:090CH         LINE#         36
+  C:090CH         LINE#         37
+  C:090CH         LINE#         38
+  C:090FH         LINE#         39
+  C:0912H         LINE#         40
+  C:0915H         LINE#         41
+  C:0918H         LINE#         42
+  C:091AH         LINE#         43
+  C:091AH         LINE#         44
+  C:091AH         LINE#         45
+  C:0923H         LINE#         46
+  C:092EH         LINE#         47
+  C:0937H         LINE#         48
+  C:093FH         LINE#         49
+  C:0942H         LINE#         50
+  C:0945H         LINE#         51
+  C:0954H         LINE#         52
+  C:095DH         LINE#         53
+  C:0970H         LINE#         54
+  C:0979H         LINE#         55
+  C:097BH         LINE#         56
+  -------         ENDPROC       MAIN
+  -------         PROC          INIT_SERIELL
+  C:0B01H         LINE#         59
+  C:0B01H         LINE#         60
+  C:0B01H         LINE#         61
+  C:0B04H         LINE#         62
+  C:0B07H         LINE#         63
+BL51 BANKED LINKER/LOCATER V6.00                                                      12/11/2013  08:34:28  PAGE 4
+
+
+  C:0B0AH         LINE#         64
+  C:0B0DH         LINE#         65
+  C:0B0FH         LINE#         66
+  C:0B11H         LINE#         67
+  -------         ENDPROC       INIT_SERIELL
+  -------         PROC          INIT_TIMER0
+  C:0B12H         LINE#         69
+  C:0B12H         LINE#         70
+  C:0B12H         LINE#         71
+  C:0B15H         LINE#         72
+  C:0B18H         LINE#         73
+  C:0B1BH         LINE#         74
+  C:0B1EH         LINE#         75
+  C:0B20H         LINE#         76
+  C:0B22H         LINE#         77
+  -------         ENDPROC       INIT_TIMER0
+  -------         PROC          INIT_AD
+  C:0ADAH         LINE#         79
+  C:0ADAH         LINE#         80
+  C:0ADAH         LINE#         81
+  C:0ADCH         LINE#         82
+  C:0ADEH         LINE#         83
+  C:0AE0H         LINE#         84
+  C:0AE2H         LINE#         85
+  C:0AE5H         LINE#         86
+  C:0AE8H         LINE#         87
+  C:0AEBH         LINE#         88
+  C:0AEDH         LINE#         89
+  -------         ENDPROC       INIT_AD
+  -------         PROC          _PUTCHAR
+  D:0007H         SYMBOL        ch
+  C:0B30H         LINE#         91
+  C:0B30H         LINE#         92
+  C:0B30H         LINE#         93
+  C:0B33H         LINE#         94
+  C:0B35H         LINE#         95
+  C:0B37H         LINE#         96
+  -------         ENDPROC       _PUTCHAR
+  -------         PROC          _PRINTUINTDEZ
+  D:0002H         SYMBOL        wert
+  C:0A01H         LINE#         98
+  C:0A05H         LINE#         99
+  C:0A05H         LINE#         100
+  C:0A20H         LINE#         101
+  -------         ENDPROC       _PRINTUINTDEZ
+  -------         PROC          _PRINTSTRING
+  D:0001H         SYMBOL        cp
+  C:0AEEH         LINE#         104
+  C:0AEEH         LINE#         105
+  C:0AEEH         LINE#         106
+  C:0AF4H         LINE#         107
+  C:0B00H         LINE#         108
+  -------         ENDPROC       _PRINTSTRING
+  -------         PROC          GETCHAR
+  -------         DO            
+  D:0007H         SYMBOL        cget
+  -------         ENDDO         
+BL51 BANKED LINKER/LOCATER V6.00                                                      12/11/2013  08:34:28  PAGE 5
+
+
+  C:0B23H         LINE#         110
+  C:0B23H         LINE#         111
+  C:0B23H         LINE#         114
+  C:0B23H         LINE#         115
+  C:0B26H         LINE#         116
+  C:0B28H         LINE#         117
+  C:0B2AH         LINE#         118
+  C:0B2FH         LINE#         119
+  C:0B2FH         LINE#         120
+  -------         ENDPROC       GETCHAR
+  -------         PROC          GETUINTDEZ
+  -------         DO            
+  D:0002H         SYMBOL        wert
+  D:0001H         SYMBOL        c
+  -------         ENDDO         
+  C:0A77H         LINE#         122
+  C:0A77H         LINE#         123
+  C:0A77H         LINE#         124
+  C:0A7AH         LINE#         127
+  C:0A7AH         LINE#         128
+  C:0A7AH         LINE#         129
+  C:0A7FH         LINE#         130
+  C:0A84H         LINE#         131
+  C:0A84H         LINE#         132
+  C:0A89H         LINE#         133
+  C:0AA7H         LINE#         134
+  C:0AA9H         LINE#         135
+  C:0AADH         LINE#         136
+  -------         ENDPROC       GETUINTDEZ
+  -------         PROC          TASTERTEST
+  -------         DO            
+  D:0008H         SYMBOL        tastalt
+  D:0007H         SYMBOL        tast
+  D:0006H         SYMBOL        step
+  -------         ENDDO         
+  C:0AAEH         LINE#         138
+  C:0AAEH         LINE#         139
+  C:0AAEH         LINE#         141
+  C:0AB0H         LINE#         143
+  C:0AB3H         LINE#         144
+  C:0AB3H         LINE#         145
+  C:0AB8H         LINE#         146
+  C:0ABCH         LINE#         147
+  C:0ABCH         LINE#         148
+  C:0ABFH         LINE#         149
+  C:0AC1H         LINE#         150
+  C:0AC4H         LINE#         151
+  C:0AC6H         LINE#         152
+  C:0AC9H         LINE#         153
+  C:0ACBH         LINE#         154
+  C:0ACEH         LINE#         155
+  C:0AD0H         LINE#         156
+  C:0AD2H         LINE#         157
+  C:0AD4H         LINE#         158
+  C:0AD7H         LINE#         159
+  C:0AD9H         LINE#         160
+  -------         ENDPROC       TASTERTEST
+BL51 BANKED LINKER/LOCATER V6.00                                                      12/11/2013  08:34:28  PAGE 6
+
+
+  -------         PROC          TIMER1_INT
+  -------         DO            
+  D:0009H         SYMBOL        teiler
+  -------         ENDDO         
+  C:09C0H         LINE#         164
+  C:09C2H         LINE#         168
+  C:09C8H         LINE#         169
+  C:09C8H         LINE#         170
+  C:09CEH         LINE#         171
+  C:09D6H         LINE#         172
+  C:09D8H         LINE#         173
+  C:09E0H         LINE#         174
+  C:09E2H         LINE#         175
+  C:09EAH         LINE#         176
+  C:09ECH         LINE#         177
+  C:09F4H         LINE#         178
+  C:09F6H         LINE#         179
+  C:09F6H         LINE#         180
+  C:09FEH         LINE#         181
+  -------         ENDPROC       TIMER1_INT
+  -------         PROC          AD_INT
+  C:0A3FH         LINE#         183
+  C:0A4CH         LINE#         185
+  C:0A4EH         LINE#         186
+  C:0A56H         LINE#         187
+  C:0A5BH         LINE#         188
+  C:0A6CH         LINE#         189
+  -------         ENDPROC       AD_INT
+  -------         ENDMOD        VASILENKO
+
+  -------         MODULE        ?C?CLDPTR
+  C:088CH         PUBLIC        ?C?CLDPTR
+  -------         ENDMOD        ?C?CLDPTR
+
+  -------         MODULE        ?C?IMUL
+  C:08A5H         PUBLIC        ?C?IMUL
+  -------         ENDMOD        ?C?IMUL
+
+  -------         MODULE        ?C?UIDIV
+  C:08B7H         PUBLIC        ?C?UIDIV
+  -------         ENDMOD        ?C?UIDIV
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?GETUINTDEZ?VASILENKO
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0238H BYTE (27%) *
+******************************************************************************
+
+Program Size: data=23.0 xdata=0 code=840
+LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,339 @@
+BL51 BANKED LINKER/LOCATER V6.00                                                        11/29/2013  12:41:51  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.00, INVOKED BY:
+C:\PROGRAM FILES\KEIL3\C51\BIN\BL51.EXE Timer_05_vasilenko.obj TO Timer_05_Projekt RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  Timer_05_vasilenko.obj (TIMER_05_VASILENKO)
+  C:\PROGRAM FILES\KEIL3\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\PROGRAM FILES\KEIL3\C51\LIB\C51S.LIB (?C?CLDPTR)
+  C:\PROGRAM FILES\KEIL3\C51\LIB\C51S.LIB (?C?UIDIV)
+  C:\PROGRAM FILES\KEIL3\C51\LIB\C51S.LIB (?C?SLDIV)
+  C:\PROGRAM FILES\KEIL3\C51\LIB\C51S.LIB (?C_INIT)
+  C:\PROGRAM FILES\KEIL3\C51\LIB\C51S.LIB (?C?ULDIV)
+
+
+LINK MAP OF MODULE:  Timer_05_Projekt (TIMER_05_VASILENKO)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     000BH     UNIT         ?DT?TIMER_05_VASILENKO
+            DATA    0013H     0002H     UNIT         _DATA_GROUP_
+            IDATA   0015H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     0008H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+                    000EH     0005H                  *** GAP ***
+            CODE    0013H     0003H     ABSOLUTE     
+                    0016H     002DH                  *** GAP ***
+            CODE    0043H     0003H     ABSOLUTE     
+                    0046H     07BAH                  *** GAP ***
+            CODE    0800H     013CH     UNIT         ?C?LIB_CODE
+            CODE    093CH     008CH     UNIT         ?C_C51STARTUP
+            CODE    09C8H     007FH     UNIT         ?PR?MAIN?TIMER_05_VASILENKO
+            CODE    0A47H     006AH     UNIT         ?PR?_PRINTUINTDEZ?TIMER_05_VASILENKO
+            CODE    0AB1H     0044H     UNIT         ?C?LDIV
+            CODE    0AF5H     0038H     UNIT         ?PR?AD_INT?TIMER_05_VASILENKO
+            CODE    0B2DH     002CH     UNIT         ?PR?TIMER0_INT?TIMER_05_VASILENKO
+            CODE    0B59H     0017H     UNIT         ?PR?_PUTCHAR?TIMER_05_VASILENKO
+            CODE    0B70H     0014H     UNIT         ?PR?INIT_AD?TIMER_05_VASILENKO
+            CODE    0B84H     0014H     UNIT         ?CO?TIMER_05_VASILENKO
+            CODE    0B98H     0013H     UNIT         ?PR?_PRINTSTRING?TIMER_05_VASILENKO
+            CODE    0BABH     0011H     UNIT         ?PR?INIT_SERIELL?TIMER_05_VASILENKO
+            CODE    0BBCH     0011H     UNIT         ?PR?INIT_TIMER0?TIMER_05_VASILENKO
+            CODE    0BCDH     000DH     UNIT         ?PR?GETCHAR?TIMER_05_VASILENKO
+            CODE    0BDAH     0007H     UNIT         ?PR?INIT_P33?TIMER_05_VASILENKO
+            CODE    0BE1H     0005H     UNIT         ?C_INITSEG
+            CODE    0BE6H     0003H     UNIT         ?PR?P33_INT?TIMER_05_VASILENKO
+
+
+
+BL51 BANKED LINKER/LOCATER V6.00                                                      11/29/2013  12:41:51  PAGE 2
+
+
+OVERLAY MAP OF MODULE:   Timer_05_Projekt (TIMER_05_VASILENKO)
+
+
+SEGMENT                                        DATA_GROUP 
+  +--> CALLED SEGMENT                        START    LENGTH
+------------------------------------------------------------
+?C_C51STARTUP                                -----    -----
+  +--> ?PR?MAIN?TIMER_05_VASILENKO
+  +--> ?C_INITSEG
+
+?PR?MAIN?TIMER_05_VASILENKO                  -----    -----
+  +--> ?PR?INIT_SERIELL?TIMER_05_VASILENKO
+  +--> ?PR?INIT_TIMER0?TIMER_05_VASILENKO
+  +--> ?PR?INIT_AD?TIMER_05_VASILENKO
+  +--> ?PR?INIT_P33?TIMER_05_VASILENKO
+  +--> ?CO?TIMER_05_VASILENKO
+  +--> ?PR?_PRINTSTRING?TIMER_05_VASILENKO
+  +--> ?PR?GETCHAR?TIMER_05_VASILENKO
+  +--> ?PR?_PUTCHAR?TIMER_05_VASILENKO
+  +--> ?PR?_PRINTUINTDEZ?TIMER_05_VASILENKO
+
+?PR?_PRINTSTRING?TIMER_05_VASILENKO          -----    -----
+  +--> ?PR?_PUTCHAR?TIMER_05_VASILENKO
+
+?PR?_PRINTUINTDEZ?TIMER_05_VASILENKO         0013H    0002H
+  +--> ?PR?_PUTCHAR?TIMER_05_VASILENKO
+
+
+
+SYMBOL TABLE OF MODULE:  Timer_05_Projekt (TIMER_05_VASILENKO)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        TIMER_05_VASILENKO
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:00BAH         PUBLIC        SRELH
+  D:0090H         PUBLIC        P1
+  C:0B2DH         PUBLIC        timer0_int
+  D:00B0H         PUBLIC        P3
+  C:0BE6H         PUBLIC        p33_int
+  D:00AAH         PUBLIC        SRELL
+  D:00E8H         PUBLIC        P4
+  D:00F8H         PUBLIC        P5
+  B:00D8H.7       PUBLIC        BD
+  D:0008H         PUBLIC        vorwahl
+  C:0BABH         PUBLIC        init_seriell
+  D:00A8H         PUBLIC        IEN0
+  B:00B8H.0       PUBLIC        EADC
+  D:00B8H         PUBLIC        IEN1
+  B:00C0H.0       PUBLIC        IADC
+  D:0009H         PUBLIC        maske
+  B:00E8H.0       PUBLIC        P4_0
+  D:00D8H         PUBLIC        ADCON0
+  D:00DCH         PUBLIC        ADCON1
+  C:0A47H         PUBLIC        _printuintdez
+  B:0098H.0       PUBLIC        RI
+BL51 BANKED LINKER/LOCATER V6.00                                                      11/29/2013  12:41:51  PAGE 3
+
+
+  B:0098H.1       PUBLIC        TI
+  B:00D8H.5       PUBLIC        ADEX
+  C:09C8H         PUBLIC        main
+  D:00D9H         PUBLIC        ADDATH
+  D:000AH         PUBLIC        count
+  C:0B98H         PUBLIC        _printstring
+  D:00DAH         PUBLIC        ADDATL
+  D:0087H         PUBLIC        PCON
+  D:0099H         PUBLIC        SBUF
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  D:000CH         PUBLIC        sec
+  B:0088H.3       PUBLIC        IE1
+  D:000EH         PUBLIC        pin
+  B:00A8H.1       PUBLIC        ET0
+  B:0088H.5       PUBLIC        TF0
+  D:008CH         PUBLIC        TH0
+  B:00A8H.2       PUBLIC        EX1
+  B:0088H.2       PUBLIC        IT1
+  D:008AH         PUBLIC        TL0
+  B:00D8H.3       PUBLIC        ADM
+  B:00A8H.7       PUBLIC        EAL
+  B:0088H.4       PUBLIC        TR0
+  C:0B68H         PUBLIC        _putchar
+  D:000FH         PUBLIC        z0start
+  C:0B70H         PUBLIC        init_ad
+  C:0BCDH         PUBLIC        getchar
+  D:00C8H         PUBLIC        T2CON
+  D:0011H         PUBLIC        ad10bit
+  C:0BBCH         PUBLIC        init_timer0
+  C:0BDAH         PUBLIC        init_p33
+  B:00D8H.4       PUBLIC        BSY
+  C:0AF5H         PUBLIC        ad_int
+  D:00D0H         PUBLIC        PSW
+  D:00C0H         PUBLIC        IRCON
+  -------         PROC          MAIN
+  C:09C8H         LINE#         28
+  C:09C8H         LINE#         29
+  C:09C8H         LINE#         30
+  C:09CBH         LINE#         31
+  C:09CEH         LINE#         32
+  C:09D1H         LINE#         33
+  C:09D4H         LINE#         34
+  C:09D7H         LINE#         35
+  C:09D9H         LINE#         37
+  C:09D9H         LINE#         38
+  C:09D9H         LINE#         39
+  C:09DCH         LINE#         40
+  C:09E1H         LINE#         41
+  C:09EAH         LINE#         42
+  C:09EFH         LINE#         43
+  C:09F2H         LINE#         44
+  C:09F7H         LINE#         45
+  C:0A00H         LINE#         46
+  C:0A03H         LINE#         47
+  C:0A06H         LINE#         48
+BL51 BANKED LINKER/LOCATER V6.00                                                      11/29/2013  12:41:51  PAGE 4
+
+
+  C:0A13H         LINE#         49
+  C:0A18H         LINE#         50
+  C:0A1DH         LINE#         51
+  C:0A23H         LINE#         52
+  C:0A31H         LINE#         53
+  C:0A34H         LINE#         54
+  C:0A36H         LINE#         55
+  C:0A3FH         LINE#         56
+  C:0A43H         LINE#         57
+  C:0A45H         LINE#         58
+  -------         ENDPROC       MAIN
+  -------         PROC          INIT_SERIELL
+  C:0BABH         LINE#         61
+  C:0BABH         LINE#         62
+  C:0BABH         LINE#         63
+  C:0BAEH         LINE#         64
+  C:0BB1H         LINE#         65
+  C:0BB4H         LINE#         66
+  C:0BB7H         LINE#         67
+  C:0BB9H         LINE#         68
+  C:0BBBH         LINE#         69
+  -------         ENDPROC       INIT_SERIELL
+  C:0B5BH         SYMBOL        L?0039
+  C:0B64H         SYMBOL        L?0040
+  -------         PROC          L?0038
+  -------         ENDPROC       L?0038
+  C:0B5BH         SYMBOL        L?0039
+  C:0B64H         SYMBOL        L?0040
+  -------         PROC          _PUTCHAR
+  D:0007H         SYMBOL        ch
+  C:0B68H         LINE#         71
+  C:0B68H         LINE#         72
+  C:0B68H         LINE#         73
+  C:0B6BH         LINE#         74
+  C:0B6DH         LINE#         75
+  C:0B6FH         LINE#         76
+  -------         ENDPROC       _PUTCHAR
+  -------         PROC          _PRINTSTRING
+  D:0001H         SYMBOL        cp
+  C:0B98H         LINE#         78
+  C:0B98H         LINE#         79
+  C:0B98H         LINE#         80
+  C:0B9EH         LINE#         81
+  C:0BAAH         LINE#         82
+  -------         ENDPROC       _PRINTSTRING
+  -------         PROC          GETCHAR
+  -------         DO            
+  D:0007H         SYMBOL        cget
+  -------         ENDDO         
+  C:0BCDH         LINE#         84
+  C:0BCDH         LINE#         85
+  C:0BCDH         LINE#         88
+  C:0BCDH         LINE#         89
+  C:0BD0H         LINE#         90
+  C:0BD2H         LINE#         91
+  C:0BD4H         LINE#         92
+  C:0BD9H         LINE#         93
+BL51 BANKED LINKER/LOCATER V6.00                                                      11/29/2013  12:41:51  PAGE 5
+
+
+  C:0BD9H         LINE#         94
+  -------         ENDPROC       GETCHAR
+  -------         PROC          INIT_TIMER0
+  C:0BBCH         LINE#         96
+  C:0BBCH         LINE#         97
+  C:0BBCH         LINE#         98
+  C:0BBFH         LINE#         99
+  C:0BC2H         LINE#         100
+  C:0BC6H         LINE#         101
+  C:0BC8H         LINE#         102
+  C:0BCAH         LINE#         103
+  C:0BCCH         LINE#         104
+  -------         ENDPROC       INIT_TIMER0
+  -------         PROC          _PRINTUINTDEZ
+  D:0013H         SYMBOL        x
+  C:0A47H         LINE#         106
+  C:0A4BH         LINE#         107
+  C:0A4BH         LINE#         108
+  C:0A6DH         LINE#         109
+  C:0A7FH         LINE#         110
+  C:0A8FH         LINE#         111
+  C:0A9FH         LINE#         112
+  -------         ENDPROC       _PRINTUINTDEZ
+  -------         PROC          TIMER0_INT
+  C:0B2DH         LINE#         115
+  C:0B31H         LINE#         117
+  C:0B39H         LINE#         118
+  C:0B41H         LINE#         119
+  C:0B41H         LINE#         120
+  C:0B49H         LINE#         121
+  C:0B4FH         LINE#         122
+  C:0B4FH         LINE#         123
+  C:0B54H         LINE#         124
+  -------         ENDPROC       TIMER0_INT
+  -------         PROC          INIT_AD
+  C:0B70H         LINE#         126
+  C:0B70H         LINE#         127
+  C:0B70H         LINE#         128
+  C:0B72H         LINE#         129
+  C:0B74H         LINE#         130
+  C:0B76H         LINE#         131
+  C:0B78H         LINE#         132
+  C:0B7BH         LINE#         133
+  C:0B7EH         LINE#         134
+  C:0B81H         LINE#         135
+  C:0B83H         LINE#         136
+  -------         ENDPROC       INIT_AD
+  -------         PROC          INIT_P33
+  C:0BDAH         LINE#         138
+  C:0BDAH         LINE#         139
+  C:0BDAH         LINE#         140
+  C:0BDCH         LINE#         141
+  C:0BDEH         LINE#         142
+  C:0BE0H         LINE#         143
+  -------         ENDPROC       INIT_P33
+  -------         PROC          AD_INT
+  C:0AF5H         LINE#         145
+BL51 BANKED LINKER/LOCATER V6.00                                                      11/29/2013  12:41:51  PAGE 6
+
+
+  C:0B02H         LINE#         147
+  C:0B04H         LINE#         148
+  C:0B0CH         LINE#         149
+  C:0B11H         LINE#         150
+  C:0B22H         LINE#         151
+  -------         ENDPROC       AD_INT
+  -------         PROC          P33_INT
+  C:0BE6H         LINE#         153
+  C:0BE6H         LINE#         155
+  C:0BE8H         LINE#         156
+  -------         ENDPROC       P33_INT
+  -------         ENDMOD        TIMER_05_VASILENKO
+
+  -------         MODULE        ?C?CLDPTR
+  C:0800H         PUBLIC        ?C?CLDPTR
+  -------         ENDMOD        ?C?CLDPTR
+
+  -------         MODULE        ?C?UIDIV
+  C:0819H         PUBLIC        ?C?UIDIV
+  -------         ENDMOD        ?C?UIDIV
+
+  -------         MODULE        ?C?SLDIV
+  C:0AB1H         PUBLIC        ?C?SLDIV
+  -------         ENDMOD        ?C?SLDIV
+
+  -------         MODULE        ?C?ULDIV
+  C:08AAH         PUBLIC        ?C?ULDIV
+  -------         ENDMOD        ?C?ULDIV
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 01E5H BYTE (23%) *
+******************************************************************************
+
+Program Size: data=22.0 xdata=0 code=1013
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

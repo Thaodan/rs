@@ -1,0 +1,167 @@
+C51 COMPILER V8.01   IO_05_VASILENKO                                                       10/09/2013 09:09:59 PAGE 1   
+
+
+C51 COMPILER V8.01, COMPILATION OF MODULE IO_05_VASILENKO
+OBJECT MODULE PLACED IN IO_05_Vasilenko.OBJ
+COMPILER INVOKED BY: C:\Program Files\Keil3\C51\BIN\C51.EXE IO_05_Vasilenko.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          //======================================================================================
+   2          //               Serielle Kommunikation                                                                    
+             -     
+   3          //  Name: Jurij           Vorname: Vasilenko        Klasse: ITAM2     Datum: 9. Okt 2013        
+   4          //======================================================================================
+   5          //******************************* Quelltextdateien *************************************
+   6          #include <Reg515c.h>  // Unsere CPU
+   7          //********************************** Konstanten ****************************************
+   8          sbit P1_0 = P1^0;
+   9          sbit P1_1 = P1^1;
+  10          sbit P1_2 = P1^2;
+  11          sbit P1_3 = P1^3;
+  12          sbit P1_4 = P1^4;
+  13          sbit P1_5 = P1^5;
+  14          sbit P1_6 = P1^6;
+  15          sbit P1_7 = P1^7;
+  16          sbit P3_2 = P3^2;
+  17          sbit P3_3 = P3^3;
+  18          sbit P3_4 = P3^4;
+  19          sbit P3_5 = P3^5;
+  20          sbit P4_0 = P4^0;
+  21          sbit P4_1 = P4^1;
+  22          sbit P4_2 = P4^2;
+  23          sbit P4_3 = P4^3;
+  24          sbit P4_4 = P4^4;
+  25          sbit P4_5 = P4^5;
+  26          sbit P5_0 = P5^0;
+  27          sbit P5_1 = P5^1;
+  28          sbit P5_2 = P5^2;
+  29          sbit P5_3 = P5^3;
+  30          sbit P5_4 = P5^4;
+  31          sbit P5_5 = P5^5;
+  32          sbit P5_6 = P5^6;
+  33          sbit P5_7 = P5^7;
+  34          //****************************** Funktionsdeklarationen ********************************
+  35          void main(void);
+  36          void init_seriell(void);
+  37          void putchar(char ch);
+  38          void printstring(char *stringanfang);
+  39          char getchar(void);
+  40          //******************************** Hauptprogramm ***************************************
+  41          void main()
+  42          {
+  43   1        unsigned char port, pin, pinm=1, userwert;
+  44   1        bit wert;
+  45   1      
+  46   1        if(BD == 0)  // Baudratengenerator Aktivierung
+  47   1          init_seriell();  // seriellen Kommunikation ermöglicht
+  48   1      
+  49   1        while(1)
+  50   1        {
+  51   2          printstring("Port: ");  // Eingabe Port.Pin
+  52   2          port=getchar();
+  53   2          putchar(port);  // Echo Port
+  54   2          port=port-'0';  // ASCII > Zahl
+C51 COMPILER V8.01   IO_05_VASILENKO                                                       10/09/2013 09:09:59 PAGE 2   
+
+  55   2          putchar('.');
+  56   2          pin=getchar();
+  57   2          putchar(pin); // Echo Pin
+  58   2          pin=pin-'0';  // ASCII > Zahl
+  59   2          putchar('\n');
+  60   2          if(port==1 || port==3 || port==4 || port==5)  // Port Prüfung
+  61   2          {
+  62   3            if(pin>=0 && pin<=7)  // Pin Prüfung
+  63   3            {
+  64   4              if(port==3 && pin==0) continue;  // Port.Pin unnutzbar
+  65   4              if(port==3 && pin==1) continue;  // Port.Pin unnutzbar  
+  66   4              if(port==3 && pin==6) continue;  // Port.Pin unnutzbar
+  67   4              if(port==3 && pin==7) continue;  // Port.Pin unnutzbar
+  68   4              if(port==4 && pin==6) continue;  // Port.Pin unnutzbar
+  69   4              if(port==4 && pin==7) continue;  // Port.Pin unnutzbar
+  70   4              pinm=pinm<<pin;  // Pin auf pinm in Position 1 verschieben (z.B. Pin=5)
+  71   4              switch(port)
+  72   4              {
+  73   5                case 1: wert=P1^pinm; break;  // z.B. 0010 0000
+  74   5                case 3: wert=P3^pinm; break;
+  75   5                case 4: wert=P4^pinm; break;
+  76   5                case 5: wert=P5^pinm; break;
+  77   5              }
+  78   4              printstring("Momentaner Wert: ");  // Ausgabe es momentanen Werts
+  79   4              if(wert == 0)  // z.B. 0000 0000
+  80   4              {
+  81   5                putchar('0');  // Wert 0
+  82   5                putchar('\n');
+  83   5              }
+  84   4              else  // z.B 0010 0000
+  85   4              {
+  86   5                putchar('1');  // Wert 1
+  87   5                putchar('\n');
+  88   5              }
+  89   4              printstring("Neuer Wert: ");  // Ausgabe für Portpins
+  90   4              userwert=getchar();
+  91   4              putchar(userwert);  // Echo
+  92   4              userwert=userwert-'0';  // ASCII > Zahl
+  93   4              putchar('\n');
+  94   4              if(userwert==0 && wert!=0 || userwert!=0 || wert == 0)  // Änderung am Portpin
+  95   4              {
+  96   5                switch(port)
+  97   5                {
+  98   6                  case 1: P1=P1^pinm; break;
+  99   6                  case 3: P3=P3^pinm; break;
+ 100   6                  case 4: P4=P4^pinm; break;
+ 101   6                  case 5: P5=P5^pinm; break;
+ 102   6                }
+ 103   5              }
+ 104   4            }
+ 105   3          }
+ 106   2        }
+ 107   1      }
+ 108          //***************************** F u n k t i o n e n ************************************
+ 109          void init_seriell(void) 
+ 110            {
+ 111   1        SCON  = 0x50;   // SCON: mode 1, 8-bit UART, enable rcvr 
+ 112   1        PCON |= 0x80;         // SMOD Bit setzen 
+ 113   1        SRELH = 0x03;         // 9600 baud @ 10MHz für C515C
+ 114   1        SRELL = 0xBF;
+ 115   1        BD    = 1;    // Baudratengenerator verwenden
+ 116   1        TI    = 1;            // TI:   "vorausgegangenes Transmit" beendet
+C51 COMPILER V8.01   IO_05_VASILENKO                                                       10/09/2013 09:09:59 PAGE 3   
+
+ 117   1        }
+ 118          void putchar(char ch)
+ 119            {
+ 120   1        while(TI != 1); // voriges Transmit Ende abwarten
+ 121   1        TI=0;                 // für nächste Übertragung löschen
+ 122   1        SBUF=ch;    // Byte der Variablen ch seriell senden
+ 123   1        }
+ 124          void printstring(char *cp)
+ 125            {
+ 126   1        for(; *cp != '\0'; cp++)
+ 127   1             putchar(*cp);    // Zeichen seriell ausgeben
+ 128   1        }
+ 129          char getchar(void)
+ 130            {
+ 131   1        char cget;
+ 132   1      
+ 133   1        do{  
+ 134   2          while(!RI);           // Receive Ende abwarten (in dScope Serial Window TASTENDRUCK!)
+ 135   2          cget=SBUF;      // seriell empfangenes Byte in Variable cget übernehmen
+ 136   2          RI=0;     // Meldung: kann neue Daten empfangen
+ 137   2          }while(cget==0x11);
+ 138   1        return(cget);
+ 139   1        }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    389    ----
+   CONSTANT SIZE    =     38    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       4
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       1
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

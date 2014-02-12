@@ -1,0 +1,180 @@
+BL51 BANKED LINKER/LOCATER V6.00                                                        11/06/2013  09:55:26  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.00, INVOKED BY:
+C:\PROGRAM FILES\KEIL3\C51\BIN\BL51.EXE Counter_00_Vasilenko.obj TO Counter_00_Projekt RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  Counter_00_Vasilenko.obj (COUNTER_00_VASILENKO)
+  C:\PROGRAM FILES\KEIL3\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\PROGRAM FILES\KEIL3\C51\LIB\C51S.LIB (?C?UIDIV)
+  C:\PROGRAM FILES\KEIL3\C51\LIB\C51S.LIB (?C?SLDIV)
+  C:\PROGRAM FILES\KEIL3\C51\LIB\C51S.LIB (?C_INIT)
+  C:\PROGRAM FILES\KEIL3\C51\LIB\C51S.LIB (?C?ULDIV)
+
+
+LINK MAP OF MODULE:  Counter_00_Projekt (COUNTER_00_VASILENKO)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0004H     UNIT         ?DT?COUNTER_00_VASILENKO
+            DATA    000CH     0002H     UNIT         _DATA_GROUP_
+            IDATA   000EH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     0123H     UNIT         ?C?LIB_CODE
+            CODE    0923H     008CH     UNIT         ?C_C51STARTUP
+            CODE    09AFH     006AH     UNIT         ?PR?_PRINTUINTDEZ?COUNTER_00_VASILENKO
+            CODE    0A19H     0044H     UNIT         ?C?LDIV
+            CODE    0A5DH     0036H     UNIT         ?PR?MAIN?COUNTER_00_VASILENKO
+            CODE    0A93H     0017H     UNIT         ?PR?_PUTCHAR?COUNTER_00_VASILENKO
+            CODE    0AAAH     0011H     UNIT         ?PR?INIT_SERIELL?COUNTER_00_VASILENKO
+            CODE    0ABBH     0005H     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   Counter_00_Projekt (COUNTER_00_VASILENKO)
+
+
+SEGMENT                                          DATA_GROUP 
+  +--> CALLED SEGMENT                          START    LENGTH
+--------------------------------------------------------------
+?C_C51STARTUP                                  -----    -----
+  +--> ?PR?MAIN?COUNTER_00_VASILENKO
+  +--> ?C_INITSEG
+
+?PR?MAIN?COUNTER_00_VASILENKO                  -----    -----
+  +--> ?PR?INIT_SERIELL?COUNTER_00_VASILENKO
+  +--> ?PR?_PRINTUINTDEZ?COUNTER_00_VASILENKO
+  +--> ?PR?_PUTCHAR?COUNTER_00_VASILENKO
+
+?PR?_PRINTUINTDEZ?COUNTER_00_VASILENKO         000CH    0002H
+BL51 BANKED LINKER/LOCATER V6.00                                                      11/06/2013  09:55:26  PAGE 2
+
+
+  +--> ?PR?_PUTCHAR?COUNTER_00_VASILENKO
+
+
+
+SYMBOL TABLE OF MODULE:  Counter_00_Projekt (COUNTER_00_VASILENKO)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        COUNTER_00_VASILENKO
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:00BAH         PUBLIC        SRELH
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  D:00AAH         PUBLIC        SRELL
+  D:00E8H         PUBLIC        P4
+  B:00D8H.7       PUBLIC        BD
+  C:0AAAH         PUBLIC        init_seriell
+  D:00A8H         PUBLIC        IEN0
+  D:00B8H         PUBLIC        IEN1
+  D:00D8H         PUBLIC        ADCON0
+  C:09AFH         PUBLIC        _printuintdez
+  B:0098H.1       PUBLIC        TI
+  C:0A5DH         PUBLIC        main
+  D:0008H         PUBLIC        count
+  D:0087H         PUBLIC        PCON
+  D:0099H         PUBLIC        SBUF
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  D:008CH         PUBLIC        TH0
+  D:008AH         PUBLIC        TL0
+  B:0088H.4       PUBLIC        TR0
+  C:0AA2H         PUBLIC        _putchar
+  D:00C8H         PUBLIC        T2CON
+  D:000AH         PUBLIC        countalt
+  D:00D0H         PUBLIC        PSW
+  D:00C0H         PUBLIC        IRCON
+  -------         PROC          MAIN
+  C:0A5DH         LINE#         15
+  C:0A5DH         LINE#         16
+  C:0A5DH         LINE#         17
+  C:0A60H         LINE#         18
+  C:0A63H         LINE#         19
+  C:0A66H         LINE#         20
+  C:0A69H         LINE#         21
+  C:0A6BH         LINE#         23
+  C:0A6BH         LINE#         24
+  C:0A6BH         LINE#         25
+  C:0A75H         LINE#         26
+  C:0A7FH         LINE#         27
+  C:0A7FH         LINE#         28
+  C:0A85H         LINE#         30
+  C:0A8CH         LINE#         31
+  C:0A91H         LINE#         32
+  C:0A91H         LINE#         33
+  -------         ENDPROC       MAIN
+BL51 BANKED LINKER/LOCATER V6.00                                                      11/06/2013  09:55:26  PAGE 3
+
+
+  -------         PROC          _PRINTUINTDEZ
+  D:000CH         SYMBOL        x
+  C:09AFH         LINE#         36
+  C:09B3H         LINE#         37
+  C:09B3H         LINE#         38
+  C:09D5H         LINE#         39
+  C:09E7H         LINE#         40
+  C:09F7H         LINE#         41
+  C:0A07H         LINE#         42
+  -------         ENDPROC       _PRINTUINTDEZ
+  -------         PROC          INIT_SERIELL
+  C:0AAAH         LINE#         44
+  C:0AAAH         LINE#         45
+  C:0AAAH         LINE#         46
+  C:0AADH         LINE#         47
+  C:0AB0H         LINE#         48
+  C:0AB3H         LINE#         49
+  C:0AB6H         LINE#         50
+  C:0AB8H         LINE#         51
+  C:0ABAH         LINE#         52
+  -------         ENDPROC       INIT_SERIELL
+  C:0A95H         SYMBOL        L?0013
+  C:0A9EH         SYMBOL        L?0014
+  -------         PROC          L?0012
+  -------         ENDPROC       L?0012
+  C:0A95H         SYMBOL        L?0013
+  C:0A9EH         SYMBOL        L?0014
+  -------         PROC          _PUTCHAR
+  D:0007H         SYMBOL        ch
+  C:0AA2H         LINE#         53
+  C:0AA2H         LINE#         54
+  C:0AA2H         LINE#         55
+  C:0AA5H         LINE#         56
+  C:0AA7H         LINE#         57
+  C:0AA9H         LINE#         58
+  -------         ENDPROC       _PUTCHAR
+  -------         ENDMOD        COUNTER_00_VASILENKO
+
+  -------         MODULE        ?C?UIDIV
+  C:0800H         PUBLIC        ?C?UIDIV
+  -------         ENDMOD        ?C?UIDIV
+
+  -------         MODULE        ?C?SLDIV
+  C:0A19H         PUBLIC        ?C?SLDIV
+  -------         ENDMOD        ?C?SLDIV
+
+  -------         MODULE        ?C?ULDIV
+  C:0891H         PUBLIC        ?C?ULDIV
+  -------         ENDMOD        ?C?ULDIV
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 00CCH BYTE ( 9%) *
+******************************************************************************
+
+Program Size: data=15.0 xdata=0 code=707
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
